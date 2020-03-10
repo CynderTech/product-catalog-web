@@ -45,7 +45,8 @@ const Tiles = () => {
             <Container>
                 <Row>
                     {
-                        initialData.map(data => <Col sm><ProductCard /></Col>)
+                        //initialData.map(data => <Col sm><ProductCard /></Col>)
+                        <Col sm><ProductCard /></Col>
                     }
                 </Row>
             </Container>
