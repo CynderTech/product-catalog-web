@@ -6,7 +6,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import fetch from 'isomorphic-unfetch';
 
 import Frame from '../components/product/Frame';
-// import Prices from '../components/Prices';
 
 // fetch apollo client
 const client = new ApolloClient({
