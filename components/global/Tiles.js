@@ -24,7 +24,7 @@ const dataMoto = [{
 }];
 
 const Tiles = () => {
-    const { loading, error, data } = useQuery(ALL_PRODUCTS)
+    const { loading, error, data } = useQuery(ALL_PRODUCTS);
     // if (loading) return null;
     // if (error) return `Error! ${error}`;
 
