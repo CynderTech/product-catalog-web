@@ -1,11 +1,12 @@
 import { Button, Card } from 'react-bootstrap';
-
 import { useMicroState } from './microState';
 import * as types from '../global/types';
 import { useGlobalState } from '../global/useGlobalState';
 
-const ProductCard = ({ name, desc, price }) => {
+const ProductCard = ({ data }) => {
+    const { name, desc, price } = data;
     const [{ mode }, dispatch] = useGlobalState();
+    console.log('data', data);
 
     return (
         <Card style={{ width: '18rem' }} tag="a" onClick={(e, target) => {

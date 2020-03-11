@@ -12,17 +12,29 @@ const ALL_PRODUCTS = gql`
         }
     }
 `
+const dataMoto = [{
+    name: 'Pawerr',
+    desc: 'Kamottt',
+    price: '200'
+},
+{
+    name: 'Pawerr',
+    desc: 'Kamottt',
+    price: '200'
+}];
+
 const Tiles = () => {
     const { loading, error, data } = useQuery(ALL_PRODUCTS)
-    if (loading) return null;
-    if (error) return `Error! ${error}`;
+    // if (loading) return null;
+    // if (error) return `Error! ${error}`;
+
     return (
         <div>
             <Container>
                 <Row>
                     <CardColumns>
                         <Col sm>
-                            {data.allProducts.map(product =>
+                            {dataMoto.map(product =>
                                 <ProductCard data={product} />
                             )}
                         </Col>
