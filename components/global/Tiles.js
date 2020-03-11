@@ -1,53 +1,32 @@
-import { Container, Row, Col } from 'react-bootstrap';
-
+import { CardColumns, Container, Row, Col } from 'react-bootstrap';
+import { useQuery } from '@apollo/react-hooks';
 import ProductCard from '../product/ProductCard';
+import { gql } from 'apollo-boost';
 
-
-
-const initialData = [
-    {
-        product_name: 'Super Drill',
-        price: 200,
-        description: 'Butas na butas'
-    },
-    {
-        product_name: 'Super Drill',
-        price: 200,
-        description: 'Butas na butas'
+const ALL_PRODUCTS = gql`
+    query {
+        allProducts {
+            name,
+            desc,
+            price
+        }
     }
-    ,
-    {
-        product_name: 'Super Drill',
-        price: 200,
-        description: 'Butas na butas'
-    }
-    ,
-    {
-        product_name: 'Super Drill',
-        price: 200,
-        description: 'Butas na butas'
-    },
-    {
-        product_name: 'Super Drill',
-        price: 200,
-        description: 'Butas na butas'
-    },
-    {
-        product_name: 'Super Drill',
-        price: 200,
-        description: 'Butas na butas'
-    }
-];
-
+`
 const Tiles = () => {
+    const { loading, error, data } = useQuery(ALL_PRODUCTS)
+    if (loading) return null;
+    if (error) return `Error! ${error}`;
     return (
         <div>
             <Container>
                 <Row>
-                    {
-                        //initialData.map(data => <Col sm><ProductCard /></Col>)
-                        <Col sm><ProductCard /></Col>
-                    }
+                    <CardColumns>
+                        <Col sm>
+                            {data.allProducts.map(product =>
+                                <ProductCard data={product} />
+                            )}
+                        </Col>
+                    </CardColumns>
                 </Row>
             </Container>
         </div>
