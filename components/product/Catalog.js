@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
-import { Container, Grid, Image } from 'semantic-ui-react'
+import { Container, Grid, Image, Segment } from 'semantic-ui-react'
+import * as types from '../global/types';
 
 import CheckOut from '../checkout/CheckOut';
 import ProductGrid from '../product/ProductGrid';
@@ -12,11 +13,11 @@ const Catalog = () => {
     const [{ mode }, dispatch] = useGlobalState();
     console.log('modeee', mode);
     return (
-        <React.Fragment>
-            {(mode === 'catalog' && <ProductGrid />)
-                || ((mode === 'check-out' || mode === 'quick-buy') && <CheckOut />)
+        <div>
+            {(mode === types.CATALOG && <ProductGrid />)
+                || ((mode === types.QUICK_BUY || mode === types.CHECK_OUT) && <CheckOut />)
                 || (mode === 'product-view' && <ProductDetails />)}
-        </React.Fragment>
+        </div>
     )
 }
 

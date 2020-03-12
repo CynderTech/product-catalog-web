@@ -25,9 +25,9 @@ const Cart = (props) => {
                         <Icon name='cart' />
                         My Cart
                     </Header>
-                    <Button floated='right' color='green' basic onClick={() => dispatch({ type: types.MODE, mode: 'check-out' })}>Check Out</Button>
+                    <Button floated='right' color='green' basic onClick={() => dispatch({ type: types.CHECK_OUT })}>Check Out</Button>
                 </Segment>
-                <Segment>
+                <Segment raised style={{ overflow: 'auto', maxHeight: 'auto' }}>
                     <Item.Group divided>
                         {cart.map(item => (
 

@@ -5,7 +5,7 @@ import { useGlobalState } from '../global/useGlobalState';
 const ListItem = ({ data }) => {
     const { img, name, desc, qty, price } = data;
     const [{ mode, cart, selectedProduct }, dispatch] = useGlobalState();
-
+    console.log('list itemmmm');
     return (
         <Card>
             <Card.Content>
