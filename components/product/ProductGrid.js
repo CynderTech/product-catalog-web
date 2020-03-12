@@ -61,9 +61,9 @@ const dataMoto = [{
 const ProductGrid = () => {
     const [{ mode }, dispatch] = useGlobalState();
 
-    // const { error, loading, data } = useQuery(ALL_PRODUCTS);
-    // if (loading) return null;
-    // if (error) return `Error! ${error}`;
+    const { error, loading, data } = useQuery(ALL_PRODUCTS);
+    if (loading) return null;
+    if (error) return `Error! ${error}`;
 
     return (
         <div>
