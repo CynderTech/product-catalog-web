@@ -18,9 +18,6 @@ const ProductCard = ({ data }) => {
                 <Card.Meta>
                     <span className='date'>Category</span>
                 </Card.Meta>
-                <Card.Description>
-                    {desc}
-                </Card.Description>
             </Card.Content>
             <Card.Content extra>
                 <a>

@@ -7,6 +7,16 @@ import ProductCard from '../product/ProductCard';
 import { gql } from 'apollo-boost';
 
 
+const ALL_PRODUCTS = gql`
+    query {
+        allProducts {
+            name,
+            desc,
+            price
+        }
+    }
+`
+
 const dataMoto = [{
     img: 'https://tnthomeimprovements.com/wp-content/uploads/2019/08/placeholder-300x200.png',
     name: 'Ensaymada',
@@ -41,11 +51,16 @@ const dataMoto = [{
 const ProductGrid = () => {
     const [{ mode }, dispatch] = useGlobalState();
     console.log('modeee', mode);
+
+    const { error, loading, data } = useQuery(ALL_PRODUCTS);
+    if (loading) return null;
+    if (error) return `Error! ${error}`;
+
     return (
         <div>
             <Grid columns={3}>
                 <Grid.Row>
-                    {dataMoto.map((product, index) =>
+                    {data.allProducts.map((product, index) =>
                         <Grid.Column>
                             <ProductCard data={product} />
                         </Grid.Column>
