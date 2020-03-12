@@ -59,11 +59,7 @@ const ProductGrid = () => {
         <div>
             <Grid columns={3}>
                 <Grid.Row>
-<<<<<<< HEAD
                     {data.allProducts.map((product, index) =>
-=======
-                    {data..map((product, index) =>
->>>>>>> 7ac96b8a7e28a9e629e29c481e1fdbe687efeca2
                         <Grid.Column>
                             <ProductCard data={product} />
                         </Grid.Column>
