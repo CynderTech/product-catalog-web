@@ -69,7 +69,7 @@ const ProductGrid = () => {
         <div>
             <Grid columns={3}>
                 <Grid.Row>
-                    {dataMoto.map((product, index) =>
+                    {data.allProducts.map((product, index) =>
                         <Grid.Column>
                             <ProductCard data={product} />
                         </Grid.Column>
