@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Button, Grid, Image } from 'semantic-ui-react'
 import ListItem from './ListItem';
+import * as types from '../global/types';
 import PaymentDetails from './PaymentDetails';
 import { useGlobalState } from '../global/useGlobalState';
 
@@ -9,8 +10,8 @@ const CheckOut = () => {
     let orders = [];
     console.log(' Cartsu', cart);
     console.log(' selected Producto', selectedProduct);
-    if (mode === 'check-out') orders = cart;
-    if (mode === 'quick-buy') orders = [{ ...selectedProduct }];
+    if (mode === types.CHECK_OUT) orders = cart;
+    if (mode === types.QUICK_BUY) orders = [{ ...selectedProduct }];
 
     const total = orders.reduce((a, b) => a + (b['price'] || 0), 0);
     console.log('checkout is open');
@@ -29,6 +30,5 @@ const CheckOut = () => {
         </React.Fragment>
     )
 };
-
 
 export default CheckOut;

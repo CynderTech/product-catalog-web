@@ -24,8 +24,8 @@ const ProductCard = ({ data }) => {
                     <Icon name='dollar' />
                     {price}
                 </a>
-                <Button floated="right" icon="cart" onClick={() => dispatch({ type: 'add-to-cart', selectedProduct: data })} />
-                <Button floated="right" onClick={() => dispatch({ type: 'quick-buy', mode: 'quick-buy', selectedProduct: data })}>Buy Now</Button>
+                <Button floated="right" icon="cart" onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })} />
+                <Button floated="right" onClick={() => dispatch({ type: types.QUICK_BUY, selectedProduct: data })}>Buy Now</Button>
             </Card.Content>
         </Card>
     )

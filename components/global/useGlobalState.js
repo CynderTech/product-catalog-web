@@ -4,7 +4,7 @@ import * as types from '../global/types';
 const initialState = {
     activeItem: 'home',
     cart: [],
-    mode: 'catalog',
+    mode: types.CATALOG,
     openCart: false,
     selectedProduct: '',
     products: []
@@ -19,14 +19,20 @@ const reducer = (state, action) => {
             return { ...prevState };
         }
 
-        case 'quick-buy': {
+        case types.QUICK_BUY: {
             const prevState = { ...state };
-            prevState.mode = action.mode;
+            prevState.mode = types.QUICK_BUY;
             prevState.selectedProduct = action.selectedProduct;
             return { ...prevState };
         }
 
-        case 'add-to-cart': {
+        case types.CHECK_OUT: {
+            const prevState = { ...state };
+            prevState.mode = types.CHECK_OUT;
+            return { ...prevState };
+        }
+
+        case types.ADD_TO_CART: {
             const prevState = { ...state };
             prevState.cart.push(action.selectedProduct);
             return { ...prevState };
@@ -45,6 +51,13 @@ const reducer = (state, action) => {
         case types.MODE: {
             const prevState = { ...state };
             prevState.mode = action.mode;
+            return { ...prevState };
+        }
+
+
+        case types.CATALOG: {
+            const prevState = { ...state };
+            prevState.activeItem = 'home';
             return { ...prevState };
         }
 
