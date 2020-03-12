@@ -1,32 +1,33 @@
-import React, { Component } from 'react';
-import { Container, Row, Col, ListGroup, Image, Button } from 'react-bootstrap';
+import React from 'react'
+import { Card, Button, Grid, Image } from 'semantic-ui-react'
 import ListItem from './ListItem';
 import PaymentDetails from './PaymentDetails';
+import { useGlobalState } from '../global/useGlobalState';
 
 const CheckOut = () => {
-    return (
-        <Container>
-            <h3>Payment Details</h3>
-            <Row>
-                <Col>
-                    <PaymentDetails />
-                </Col>
-                <Col className="">
-                    <h5>Items</h5>
-                    <ListItem />
-                </Col>
-                {/* <Col>
-                    <h5 className=""> Sub-Total</h5>
-                </Col> */}
+    const [{ mode, cart, selectedProduct }, dispatch] = useGlobalState();
+    let orders = [];
+    console.log(' Cartsu', cart);
+    console.log(' selected Producto', selectedProduct);
+    if (mode === 'check-out') orders = cart;
+    if (mode === 'quick-buy') orders = [{ ...selectedProduct }];
 
-            </Row>
-            <Row className="">
-                <div className="ml-auto"> <span>Total 900</span></div>
-            </Row>
-            <Row className=" mt-3" >
-                <div className="ml-auto"><Button>Place Order</Button></div>
-            </Row>
-        </Container>)
+    const total = orders.reduce((a, b) => a + (b['price'] || 0), 0);
+    console.log('checkout is open');
+    return (
+        <React.Fragment>
+            <Grid columns={2} divided>
+                <Grid.Column>
+                    <h3>Payment Details</h3>
+                </Grid.Column>
+                <Grid.Column>
+                    <h3>Products</h3>
+                    {orders.map(order => <ListItem data={order} />)}
+                </Grid.Column>
+            </Grid>
+
+        </React.Fragment>
+    )
 };
 
 

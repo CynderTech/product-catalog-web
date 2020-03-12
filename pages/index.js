@@ -1,11 +1,12 @@
 // import Fetch from 'isomorphic-unfetch';
-import { PrometheusProvider } from '../components/global/useGlobalState';
+import { ProductCatalogProvider } from '../components/global/useGlobalState';
 import Layout from '../components/layout/Layout';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import fetch from 'isomorphic-unfetch';
-
-import Frame from '../components/product/Frame';
+import Catalog from '../components/product/Catalog';
+import Navbar from '../components/Navbar';
+import Cart from '../components/Cart';
 
 // fetch apollo client
 const client = new ApolloClient({
@@ -14,17 +15,16 @@ const client = new ApolloClient({
 });
 
 const Index = (props) => (
-    <Layout>
-        <PrometheusProvider>
-            <ApolloProvider client={client}>
-                <div>
-                    {/* <Tiles data={props.products} /> */}
-                    <Frame />
-                    {/* <CheckOut /> */}
-                </div>
-            </ApolloProvider>
-        </PrometheusProvider>
-    </Layout>
+    <ProductCatalogProvider>
+        <ApolloProvider client={client}>
+            <Layout>
+                <Navbar />
+                <Cart>
+                    <Catalog />
+                </Cart>
+            </Layout>
+        </ApolloProvider>
+    </ProductCatalogProvider>
 );
 
 // Index.getInitialProps = async function () {
