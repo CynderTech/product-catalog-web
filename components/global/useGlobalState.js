@@ -37,6 +37,11 @@ const reducer = (state, action) => {
             return { ...prevState, openCart: true };
         }
 
+        case types.CLOSE_CART: {
+            const prevState = { ...state };
+            return { ...prevState, openCart: false };
+        }
+
         case types.MODE: {
             const prevState = { ...state };
             prevState.mode = action.mode;

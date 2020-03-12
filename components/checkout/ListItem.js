@@ -11,11 +11,11 @@ const ListItem = ({ data }) => {
             <Card.Content>
                 <Image
                     floated='left'
-                    size='mini'
+                    size='tiny'
                     src={img}
                 />
-                <Card.Header>{}</Card.Header>
-                <Card.Meta>{name}</Card.Meta>
+                <Card.Header>{name}</Card.Header>
+                <Card.Meta>category</Card.Meta>
                 <Card.Description>
                     {desc}
                 </Card.Description>

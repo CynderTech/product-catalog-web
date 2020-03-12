@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Card, Icon, Image } from 'semantic-ui-react'
+import { Grid, Card, Icon, Image, Segment } from 'semantic-ui-react'
 import { useGlobalState } from '../global/useGlobalState';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -52,15 +52,15 @@ const ProductGrid = () => {
     const [{ mode }, dispatch] = useGlobalState();
     console.log('modeee', mode);
 
-    const { error, loading, data } = useQuery(ALL_PRODUCTS);
-    if (loading) return null;
-    if (error) return `Error! ${error}`;
+    // const { error, loading, data } = useQuery(ALL_PRODUCTS);
+    // if (loading) return null;
+    // if (error) return `Error! ${error}`;
 
     return (
         <div>
             <Grid columns={3}>
                 <Grid.Row>
-                    {data.allProducts.map((product, index) =>
+                    {dataMoto.map((product, index) =>
                         <Grid.Column>
                             <ProductCard data={product} />
                         </Grid.Column>
