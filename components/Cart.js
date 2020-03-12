@@ -30,7 +30,6 @@ const Cart = (props) => {
                 <Segment raised style={{ overflow: 'auto', maxHeight: 'auto' }}>
                     <Item.Group divided>
                         {cart.map(item => (
-
                             <Item>
                                 <Item.Content>
                                     <Checkbox floated='left' defaultChecked />
@@ -44,13 +43,22 @@ const Cart = (props) => {
                                     </Item.Description>
                                 </Item.Content>
                                 <Item.Content>
-                                    <Input size='tiny' labelPosition='right' type='number' placeholder='Amount'>
-                                        <Button.Group size='tiny'>
-                                            <Button icon='add' />
-                                            <input style={{ width: "30px" }} />
-                                            <Button icon='minus' />
+
+                                    <Input basic fluid>
+                                        <Button.Group fluid basic size='mini'>
+                                            <Button icon='add' onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: item })} />
+                                            <input
+                                                value={item.qty}
+                                                style={{
+                                                    width: "50px",
+                                                    textAlign: "center",
+                                                    fontSize: "10px",
+                                                    borderStyle: "groove",
+                                                }} />
+                                            <Button icon='minus' onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: item })} />
                                         </Button.Group>
                                     </Input>
+
                                 </Item.Content>
                             </Item>
                         ))}

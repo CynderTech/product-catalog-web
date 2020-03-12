@@ -9,7 +9,7 @@ import { useGlobalState } from '../global/useGlobalState';
 const ProductCard = ({ data }) => {
     const { img, name, desc, price } = data;
     const [{ cart }, dispatch] = useGlobalState();
-    console.log('data datatata', data);
+
     return (
         <Card>
             <Image src={img} wrapped ui={false} />
