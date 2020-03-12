@@ -51,15 +51,15 @@ const dataMoto = [{
 const ProductGrid = () => {
     const [{ mode }, dispatch] = useGlobalState();
 
-    // const { error, loading, data } = useQuery(ALL_PRODUCTS);
-    // if (loading) return null;
-    // if (error) return `Error! ${error}`;
+    const { error, loading, data } = useQuery(ALL_PRODUCTS);
+    if (loading) return null;
+    if (error) return `Error! ${error}`;
 
     return (
         <div>
             <Grid columns={3}>
                 <Grid.Row>
-                    {dataMoto.map((product, index) =>
+                    {data.ALL_PRODUCTS.map((product, index) =>
                         <Grid.Column>
                             <ProductCard data={product} />
                         </Grid.Column>
