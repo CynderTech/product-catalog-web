@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Button, Icon, Image, Grid } from 'semantic-ui-react'
+import numeral from 'numeral';
 import * as types from '../global/types';
 import { useGlobalState } from '../global/useGlobalState';
 
@@ -28,8 +29,7 @@ const ListItem = ({ data }) => {
                         <Card.Content extra textAlign="right">
                             <div>
                                 <a>
-                                    <Icon name='dollar' />
-                                    {price}
+                                    {numeral(price || 0).format('$ 0,0.00')}
                                 </a>
 
                             </div>
@@ -50,9 +50,8 @@ const ListItem = ({ data }) => {
             </Card.Content>
             <Card.Content extra textAlign="right">
                 <div>
-                    <a>Sub-Total
-                        <Icon floated='right' name='dollar' />
-                        <span>{`${qty ? qty * price : 0}`}</span>
+                    <a>Sub-Total:
+                        <span>{` ${numeral(qty ? qty * price : 0 || 0).format('$ 0,0.00')}`}</span>
                     </a>
                 </div>
             </Card.Content >

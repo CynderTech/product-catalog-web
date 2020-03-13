@@ -6,7 +6,7 @@ const PageIndicator = () => {
     const [{ mode }, dispatch] = useGlobalState();
     let link = '';
     if (mode === types.CHECK_OUT || mode === types.QUICK_BUY) link = 'Check Out';
-
+    if (mode === types.VIEW_PRODUCT || mode === types.VIEW_PRODUCT) link = 'Product Details';
     return (
         (mode !== types.CATALOG &&
             <Breadcrumb size='huge'>

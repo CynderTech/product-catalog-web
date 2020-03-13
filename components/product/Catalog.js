@@ -13,12 +13,11 @@ const Catalog = () => {
     const [{ mode }, dispatch] = useGlobalState();
 
     return (
-        <div>
+        <Segment>
             {(mode === types.CATALOG && <ProductGrid />)
                 || ((mode === types.QUICK_BUY || mode === types.CHECK_OUT) && <CheckOut />)
-                || (mode === 'product-view' && <ProductDetails />)}
-        </div>
-
+                || (mode === types.VIEW_PRODUCT && <ProductDetails />)}
+        </Segment>
     )
 }
 

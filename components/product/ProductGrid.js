@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Card, Icon, Image, Segment, Transition } from 'semantic-ui-react'
+import { Grid, Card, Icon, Image, Checkbox, Rail, Segment, Sticky, Transition } from 'semantic-ui-react'
 import { useGlobalState } from '../global/useGlobalState';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -68,10 +68,10 @@ const ProductGrid = () => {
 
     return (
         <div>
-            <Grid columns={3}>
+            <Grid columns={4} doubling stackable>
                 <Grid.Row>
                     {dataMoto.map((product, index) =>
-                        <Grid.Column>
+                        <Grid.Column fixed>
                             <ProductCard data={product} />
                         </Grid.Column>
                     )}

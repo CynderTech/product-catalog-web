@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react'
+import numeral from 'numeral';
 import { useMicroState } from './microState';
 import * as types from '../global/types';
 import { useGlobalState } from '../global/useGlobalState';
@@ -15,7 +16,7 @@ const ProductCard = ({ data }) => {
             <Image src={img} wrapped ui={false} />
             <Card.Content>
                 <Card.Header>{name}</Card.Header>
-                <span>P{price}.00</span>
+                <span>{numeral(price || 0).format('$ 0,0.00')}</span>
                 <Card.Meta>
                     <a>
                         category
@@ -23,14 +24,16 @@ const ProductCard = ({ data }) => {
                 </Card.Meta>
             </Card.Content>
             <Card.Content extra>
-                <Button.Group floated="center" fluid basic size='mini'>
-                    <Button onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })}>
-                        <Icon color='blue' name='chat' /> Chat
-                </Button>
+                <Button.Group fluid basic size='mini'>
+                    <Button onClick={() => dispatch({ type: types.VIEW_PRODUCT, selectedProduct: data })}>
+                        View
+                    </Button>
                     <Button onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })}>
                         <Icon color='red' name='add to cart' /> Add to Cart
-                </Button>
-                    <Button basic color='red' onClick={() => dispatch({ type: types.QUICK_BUY, selectedProduct: data })}>Buy Now</Button>
+                    </Button>
+                    <Button basic onClick={() => dispatch({ type: types.QUICK_BUY, selectedProduct: data })} >
+                        Buy Now
+                    </Button>
                 </Button.Group>
             </Card.Content>
         </Card>

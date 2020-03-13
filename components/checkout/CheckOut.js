@@ -1,16 +1,18 @@
 import React from 'react'
 import { Card, Button, Grid, Header, Divider, Container, Segment } from 'semantic-ui-react'
+import numeral from 'numeral';
 import ListItem from './ListItem';
 import * as types from '../global/types';
 import PaymentDetails from './PaymentDetails';
 import { useGlobalState } from '../global/useGlobalState';
+import { checkOut } from '../product/catalogLibrary';
 
 const CheckOut = () => {
     const [{ mode, cart, selectedProduct }, dispatch] = useGlobalState();
     let orders = [];
     console.log(' Cartsu', cart);
     console.log(' selected Producto', selectedProduct);
-    if (mode === types.CHECK_OUT) orders = cart;
+    if (mode === types.CHECK_OUT) orders = checkOut(cart);
 
     if (mode === types.QUICK_BUY && selectedProduct.id) orders = [{ ...selectedProduct }];
 
@@ -57,10 +59,10 @@ const CheckOut = () => {
                         </div>
                         <div class="field">
                             <div class="ui checkbox">
-                            <input type="checkbox" class="hidden" readonly="" tabindex="0" />
-                            <label>I agree to the Terms and Conditions</label>
+                                <input type="checkbox" class="hidden" readonly="" tabindex="0" />
+                                <label>I agree to the Terms and Conditions</label>
                             </div>
-                        </div>        
+                        </div>
                     </form>
                 </Grid.Column>
                 <Grid.Column>
@@ -74,13 +76,13 @@ const CheckOut = () => {
                         </Grid.Row>
                         <Grid.Row fluid>
                             <Grid celled columns={2} >
-                                <Grid.Column >
-                                    <p>{` Order Total (${totalItems} Items ) |  P${total}`}</p>
+                                <Grid.Column floated='left' >
+                                    <p>{` Order Total (${totalItems} Items ) | ${numeral(total || 0).format('$ 0,0.00')}`}</p>
                                     <p>{` Shipping fee: P50`}</p>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <h4>Total Payment: P{total + 50}</h4>
-                                    <Button color='red' basic floated='left'>Place Order</Button>
+                                    <h4>Total Payment {numeral(total !== 0 ? total + 50 : 0).format('$ 0,0.00')}</h4>
+                                    <Button basic color='red' floated='left'>Place Order</Button>
                                 </Grid.Column>
                             </Grid>
                         </Grid.Row>

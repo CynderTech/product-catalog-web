@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, Card, Checkbox, Grid, Ref, Header, Icon, Image, Input, Item, List, Menu, Rail, Segment, Sidebar, Sticky, Label } from 'semantic-ui-react'
 import * as types from '../components/global/types';
 import { useGlobalState } from './global/useGlobalState';
-
+import { checkOut } from '../components/product/catalogLibrary';
 
 const Cart = (props) => {
     const [{ cart, openCart }, dispatch] = useGlobalState();
@@ -16,16 +16,16 @@ const Cart = (props) => {
                 direction='right'
                 inverted
                 vertical
-                onHide={() => dispatch({ type: openCart ? types.CLOSE_CART : types.OPEN_CART })}
+                onHide={() => dispatch({ type: types.CLOSE_CART })}
                 visible={openCart}
                 width='wide'
             >
                 <Segment>
                     <Header as='a'>
                         <Icon name='opencart' color='teal' />
-                        My Cart
+                        Cart Moto
                     </Header>
-                    <Button disabled={cart.length === 0} floated='right' size='tiny' color='red' basic onClick={() => dispatch({ type: types.CHECK_OUT })}>Check Out</Button>
+                    <Button disabled={checkOut(cart).length === 0} floated='right' size='tiny' color='red' basic onClick={() => dispatch({ type: types.CHECK_OUT })}>Check Out</Button>
                 </Segment>
                 {cart.length !== 0 ?
                     <Segment raised style={{ overflow: 'auto', maxHeight: 'auto' }}>
@@ -33,7 +33,10 @@ const Cart = (props) => {
                             {cart.map(item => (
                                 <Item>
                                     <Item.Content>
-                                        <Checkbox floated='left' defaultChecked />
+                                        <Checkbox onChange={(e, props) =>
+                                            dispatch({ type: types.CHECKED_PRODUCT, selectedProduct: { ...item, checked: props.checked } })}
+                                            floated='left'
+                                            defaultChecked />
                                     </Item.Content>
                                     <Item.Content>
                                         <Item.Image floated='left' size='tiny' src={item.img} />
@@ -47,7 +50,7 @@ const Cart = (props) => {
                                         }}>
                                             {item.name}
                                         </Header>
-                                        <Item.Meta floated='right'>P{item.price}</Item.Meta>
+                                        <Item.Meta floated='right'>P{item.price}.00</Item.Meta>
                                         {/* <Item.Description>
                                      <p style={{
                                          width: "100px",
@@ -57,8 +60,8 @@ const Cart = (props) => {
                                      }}>  {item.desc}</p>
                                  </Item.Description> */}
                                         <Input basic fluid>
-                                            <Button.Group fluid floated='left' basic size='mini'>
-                                                <Button icon='add' onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: item })} />
+                                            <Button.Group floated='left' basic size='mini'>
+                                                <Button icon='minus' onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: item })} />
                                                 <input
                                                     value={item.qty}
                                                     style={{
@@ -67,21 +70,22 @@ const Cart = (props) => {
                                                         fontSize: "10px",
                                                         borderStyle: "groove",
                                                     }} />
-                                                <Button icon='minus' onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: item })} />
+                                                <Button icon='add' onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: item })} />
                                             </Button.Group>
                                         </Input>
                                     </Item.Content>
                                     <Item.Content>
-
-
                                     </Item.Content>
                                 </Item>
                             ))}
                         </Item.Group>
                     </Segment>
                     :
-                    <Segment>
-                        <p color='grey'>Your Cart is empty</p>
+                    <Segment placeholder>
+                        <Header icon>
+                            <Icon name='cart arrow down' />
+                            You have no items in your shopping cart
+                        </Header>
                     </Segment>
                 }
 
