@@ -21,7 +21,47 @@ const CheckOut = () => {
         <React.Fragment>
             <Grid columns={2} divided>
                 <Grid.Column>
-                    <h3>Payment Details</h3>
+                    <Header as='h3'>
+                        Payment Details
+                    </Header>
+                    <Divider clearing />
+                    <h5><PaymentDetails /></h5>
+                    <form class="ui form">
+                        <div class="field">
+                            <label>First Name *</label>
+                            <input placeholder="First Name" />
+                        </div>
+                        <div class="field">
+                            <label>Middle Name</label>
+                            <input placeholder="Middle Name" />
+                        </div>
+                        <div class="field">
+                            <label>Last Name *</label>
+                            <input placeholder="Last Name" />
+                        </div>
+                        <div class="field">
+                            <label>Credit Card Number *</label>
+                            <input placeholder="Credid_Card_Number" />
+                        </div>
+                        <div class="field">
+                            <label>Exp_Month *</label>
+                            <input placeholder="Exp_Month" />
+                        </div>
+                        <div class="field">
+                            <label>Exp_Year *</label>
+                            <input placeholder="Exp_Yer" />
+                        </div>
+                        <div class="field">
+                            <label>CVC *</label>
+                            <input placeholder="CVC" />
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                            <input type="checkbox" class="hidden" readonly="" tabindex="0" />
+                            <label>I agree to the Terms and Conditions</label>
+                            </div>
+                        </div>        
+                    </form>
                 </Grid.Column>
                 <Grid.Column>
                     <Header as='h3'>
