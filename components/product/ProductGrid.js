@@ -10,6 +10,7 @@ import { gql } from 'apollo-boost';
 const ALL_PRODUCTS = gql`
     query {
         allProducts {
+            id,
             name,
             desc,
             price
