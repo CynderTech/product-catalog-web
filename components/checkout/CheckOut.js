@@ -14,6 +14,7 @@ const CheckOut = () => {
 
     if (mode === types.QUICK_BUY && selectedProduct.id) orders = [{ ...selectedProduct }];
 
+    const totalItems = orders.reduce((a, b) => a + (b['qty'] || 0), 0);
     const total = orders.reduce((a, b) => a + (b['price'] * b['qty'] || 0), 0);
 
     return (
@@ -31,16 +32,17 @@ const CheckOut = () => {
                         <Grid.Row style={{ overflow: 'auto', maxHeight: '50vh' }}>
                             {orders.map(order => <ListItem data={order} />)}
                         </Grid.Row>
-                        <Grid.Row>
-                            <Grid columns={2} divided>
-                                <Grid.Column>
-                                    <h5 floated='right'>{`Total: P${total}`}</h5>
+                        <Grid.Row fluid>
+                            <Grid celled columns={2} >
+                                <Grid.Column >
+                                    <p>{` Order Total (${totalItems} Items ) |  P${total}`}</p>
+                                    <p>{` Shipping fee: P50`}</p>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Button basic floated='right'>Place Order</Button>
+                                    <h4>Total Payment: P{total + 50}</h4>
+                                    <Button color='red' basic floated='left'>Place Order</Button>
                                 </Grid.Column>
                             </Grid>
-
                         </Grid.Row>
                     </Grid>
                 </Grid.Column>

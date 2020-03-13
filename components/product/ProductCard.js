@@ -15,17 +15,23 @@ const ProductCard = ({ data }) => {
             <Image src={img} wrapped ui={false} />
             <Card.Content>
                 <Card.Header>{name}</Card.Header>
+                <span>P{price}.00</span>
                 <Card.Meta>
-                    <span className='date'>Category</span>
+                    <a>
+                        category
+                    </a>
                 </Card.Meta>
             </Card.Content>
             <Card.Content extra>
-                <a>
-                    <Icon name='dollar' />
-                    {price}
-                </a>
-                <Button floated="right" icon="cart" onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })} />
-                <Button floated="right" onClick={() => dispatch({ type: types.QUICK_BUY, selectedProduct: data })}>Buy Now</Button>
+                <Button.Group floated="center" fluid basic size='mini'>
+                    <Button onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })}>
+                        <Icon color='blue' name='chat' /> Chat
+                </Button>
+                    <Button onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })}>
+                        <Icon color='red' name='add to cart' /> Add to Cart
+                </Button>
+                    <Button basic color='red' onClick={() => dispatch({ type: types.QUICK_BUY, selectedProduct: data })}>Buy Now</Button>
+                </Button.Group>
             </Card.Content>
         </Card>
     )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Card, Icon, Image, Segment } from 'semantic-ui-react'
+import { Grid, Card, Icon, Image, Segment, Transition } from 'semantic-ui-react'
 import { useGlobalState } from '../global/useGlobalState';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -44,7 +44,7 @@ const dataMoto = [{
 {
     id: '4',
     img: 'https://tnthomeimprovements.com/wp-content/uploads/2019/08/placeholder-300x200.png',
-    name: 'Binagol',
+    name: 'Binagollololololololololololol',
     desc: 'Grided Kamoteng Kahoy',
     qty: 0,
     price: 150
@@ -53,7 +53,7 @@ const dataMoto = [{
     id: '5',
     img: 'https://tnthomeimprovements.com/wp-content/uploads/2019/08/placeholder-300x200.png',
     name: 'Chocolate Moron',
-    desc: 'Chocolate Sweet Suman',
+    desc: 'Chocolate Sweet Suman HAHAHAHAHHSDASHLDASDL ASLKJDASLK  LSAJDALKJ ASLKJDSLKJAS LKJASLDKJ',
     qty: 0,
     price: 200
 }];
@@ -61,15 +61,15 @@ const dataMoto = [{
 const ProductGrid = () => {
     const [{ mode }, dispatch] = useGlobalState();
 
-    const { error, loading, data } = useQuery(ALL_PRODUCTS);
-    if (loading) return null;
-    if (error) return `Error! ${error}`;
+    // const { error, loading, data } = useQuery(ALL_PRODUCTS);
+    // if (loading) return null;
+    // if (error) return `Error! ${error}`;
 
     return (
         <div>
             <Grid columns={3}>
                 <Grid.Row>
-                    {data.allProducts.map((product, index) =>
+                    {dataMoto.map((product, index) =>
                         <Grid.Column>
                             <ProductCard data={product} />
                         </Grid.Column>

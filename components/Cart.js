@@ -22,48 +22,69 @@ const Cart = (props) => {
             >
                 <Segment>
                     <Header as='a'>
-                        <Icon name='cart' />
+                        <Icon name='opencart' color='teal' />
                         My Cart
                     </Header>
-                    <Button floated='right' color='green' basic onClick={() => dispatch({ type: types.CHECK_OUT })}>Check Out</Button>
+                    <Button disabled={cart.length === 0} floated='right' size='tiny' color='red' basic onClick={() => dispatch({ type: types.CHECK_OUT })}>Check Out</Button>
                 </Segment>
-                <Segment raised style={{ overflow: 'auto', maxHeight: 'auto' }}>
-                    <Item.Group divided>
-                        {cart.map(item => (
-                            <Item>
-                                <Item.Content>
-                                    <Checkbox floated='left' defaultChecked />
-                                </Item.Content>
-                                <Item.Content>
-                                    <Item.Image floated='left' size='tiny' src={item.img} />
-                                    <Item.Header as='a'>{item.name}</Item.Header>
-                                    <Item.Meta>P{item.price}</Item.Meta>
-                                    <Item.Description>
-                                        {item.desc}
-                                    </Item.Description>
-                                </Item.Content>
-                                <Item.Content>
+                {cart.length !== 0 ?
+                    <Segment raised style={{ overflow: 'auto', maxHeight: 'auto' }}>
+                        <Item.Group divided>
+                            {cart.map(item => (
+                                <Item>
+                                    <Item.Content>
+                                        <Checkbox floated='left' defaultChecked />
+                                    </Item.Content>
+                                    <Item.Content>
+                                        <Item.Image floated='left' size='tiny' src={item.img} />
+                                    </Item.Content>
+                                    <Item.Content>
+                                        <Header as='h5' style={{
+                                            width: "150px",
+                                            whiteSpace: "nowrap",
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis"
+                                        }}>
+                                            {item.name}
+                                        </Header>
+                                        <Item.Meta floated='right'>P{item.price}</Item.Meta>
+                                        {/* <Item.Description>
+                                     <p style={{
+                                         width: "100px",
+                                         whiteSpace: "nowrap",
+                                         overflow: "hidden",
+                                         textOverflow: "ellipsis"
+                                     }}>  {item.desc}</p>
+                                 </Item.Description> */}
+                                        <Input basic fluid>
+                                            <Button.Group fluid floated='left' basic size='mini'>
+                                                <Button icon='add' onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: item })} />
+                                                <input
+                                                    value={item.qty}
+                                                    style={{
+                                                        width: "50px",
+                                                        textAlign: "center",
+                                                        fontSize: "10px",
+                                                        borderStyle: "groove",
+                                                    }} />
+                                                <Button icon='minus' onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: item })} />
+                                            </Button.Group>
+                                        </Input>
+                                    </Item.Content>
+                                    <Item.Content>
 
-                                    <Input basic fluid>
-                                        <Button.Group fluid basic size='mini'>
-                                            <Button icon='add' onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: item })} />
-                                            <input
-                                                value={item.qty}
-                                                style={{
-                                                    width: "50px",
-                                                    textAlign: "center",
-                                                    fontSize: "10px",
-                                                    borderStyle: "groove",
-                                                }} />
-                                            <Button icon='minus' onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: item })} />
-                                        </Button.Group>
-                                    </Input>
 
-                                </Item.Content>
-                            </Item>
-                        ))}
-                    </Item.Group>
-                </Segment>
+                                    </Item.Content>
+                                </Item>
+                            ))}
+                        </Item.Group>
+                    </Segment>
+                    :
+                    <Segment>
+                        <p color='grey'>Your Cart is empty</p>
+                    </Segment>
+                }
+
 
             </Sidebar >
             <Sidebar.Pusher>
