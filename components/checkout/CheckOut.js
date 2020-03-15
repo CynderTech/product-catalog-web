@@ -7,6 +7,25 @@ import PaymentDetails from './PaymentDetails';
 import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
 
+var request = require("request");
+
+var options = {
+    method: 'POST',
+    url: 'https://api.paymongo.com/v1/tokens',
+    headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: 'Basic anVzdG9yZWVvOlNoaW5vcGgy',
+        body: '{"data":{"attributes":{"number":Credid_Card_Number,"exp_month":Exp_Month,"exp_year":Exp_Year,"cvc":CVC}}}'
+    }
+};
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+
 const CheckOut = () => {
     const [{ mode, cart, selectedProduct }, dispatch] = useGlobalState();
     let orders = [];
@@ -31,15 +50,15 @@ const CheckOut = () => {
                     <form class="ui form">
                         <div class="field">
                             <label>First Name *</label>
-                            <input placeholder="First Name" />
+                            <input placeholder="First_Name" />
                         </div>
                         <div class="field">
                             <label>Middle Name</label>
-                            <input placeholder="Middle Name" />
+                            <input placeholder="Middle_Name" />
                         </div>
                         <div class="field">
                             <label>Last Name *</label>
-                            <input placeholder="Last Name" />
+                            <input placeholder="Last_Name" />
                         </div>
                         <div class="field">
                             <label>Credit Card Number *</label>
@@ -51,7 +70,7 @@ const CheckOut = () => {
                         </div>
                         <div class="field">
                             <label>Exp_Year *</label>
-                            <input placeholder="Exp_Yer" />
+                            <input placeholder="Exp_Year" />
                         </div>
                         <div class="field">
                             <label>CVC *</label>

@@ -20,6 +20,7 @@
     "numeral": "^2.0.6",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "request": "^2.88.2",
     "semantic-ui-react": "^0.88.2"
   }
 }
