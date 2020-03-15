@@ -6,25 +6,41 @@ import * as types from '../global/types';
 import PaymentDetails from './PaymentDetails';
 import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
+import axios from 'axios';
 
-var request = require("request");
+const testKey = 'pk_test_ByCem47H6hkGNUxFU2N7UvDk';
+/**
+ * https://developers.paymongo.com/docs/authentication
+ */
+const base64encoded = Buffer.from(testKey).toString('base64');
 
 var options = {
     method: 'POST',
     url: 'https://api.paymongo.com/v1/tokens',
     headers: {
-        accept: 'application/json',
-        'content-type': 'application/json',
-        authorization: 'Basic anVzdG9yZWVvOlNoaW5vcGgy',
-        body: '{"data":{"attributes":{"number":Credid_Card_Number,"exp_month":Exp_Month,"exp_year":Exp_Year,"cvc":CVC}}}'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Basic ${base64encoded}`,
+    },
+    /**
+     * instead of putting it in the "headers" option, using "json" option allows
+     * you to put "body" as an option as well
+     */
+    data: {
+        data: {
+            attributes: {
+                number: '4123450131000508',
+                exp_month: 7,
+                exp_year: 25,
+                cvc: '123',
+            }
+        }
     }
 };
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
-
-  console.log(body);
-});
+axios(options)
+    .then(response => console.log(response.data))
+    .catch(err => console.log(JSON.stringify(err.response.data)));
 
 const CheckOut = () => {
     const [{ mode, cart, selectedProduct }, dispatch] = useGlobalState();
