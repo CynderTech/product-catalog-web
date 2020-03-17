@@ -8,6 +8,9 @@ import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
 import axios from 'axios';
 
+const mongoCheckout = () => {
+process.env.REACT_APP_API_KEY;
+
 const testKey = 'pk_test_1FZShWVgMRgWhXBphmMBE2tp';
 /**
  * https://developers.paymongo.com/docs/authentication
@@ -29,10 +32,10 @@ var createToken = {
     data: {
         data: {
             attributes: {
-                number: '4123450131000508',
-                exp_month: 7,
-                exp_year: 25,
-                cvc: '123',
+                number: credit_card_number,
+                exp_month: exp_month,
+                exp_year: exp_year,
+                cvc: cvc,
             }
         }
     }
@@ -55,15 +58,18 @@ var createPayment = {
             }
         }
     }
+
 }
 
-axios(createToken)
-    .then(response => console.log('Check1: ', response.data))
-    .catch(err => console.log('Error1Check', JSON.stringify(err.response.data)));
+    axios(createToken)
+        .then(response => console.log('Check1: ', response.data))
+        .catch(err => console.log('Error1Check', JSON.stringify(err.response.data)));
 
-axios(createPayment)
-    .then(response => console.log('Check2: ', response.data))
-    .catch(err => console.log('Error2Check: ', JSON.stringify(err.response.data)));
+    axios(createPayment)
+        .then(response => console.log('Check2: ', response.data))
+        .catch(err => console.log('Error2Check: ', JSON.stringify(err.response.data)));
+}
+
 
 const CheckOut = () => {
     const [{ mode, cart, selectedProduct }, dispatch] = useGlobalState();
@@ -173,6 +179,7 @@ const CheckOut = () => {
                                     <h4>Total Payment {numeral(total !== 0 ? total + 50 : 0).format('$ 0,0.00')}</h4>
                                     <Button basic color='red' floated='left'
                                         onClick = {()=> { 
+                                            mongoCheckout();
                                             console.log("First Name: ", first_name);
                                             console.log("Middle Name: ", middle_name);
                                             console.log("Last Name: ", last_name);
