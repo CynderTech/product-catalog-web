@@ -1,148 +1,149 @@
 import * as types from '../global/types';
 
 export const syncSelector = (action, checkedOutItems, cart) => {
-    const { selectedProduct, type } = action;
-    const cartIndex = cart.findIndex(item => item.id === selectedProduct.id);
-    const retrievedCartItem = cart[cartIndex];
-    const checkedOutItemsIndex = checkedOutItems.findIndex(item => item.id === retrievedCartItem.id);
-    let updatedCheckedOutItems = [];
-    if (index2 !== -1) {
-        const checkedOutItemsStart = cart.slice(0, checkedOutItemsIndex);
-        const retrivedCheckedOutItem = checkedOutItems[checkedOutItemsIndex];
-        const checkedOutItemsEnd = cart.slice(checkedOutItemsIndex + 1);
+	const { selectedProduct, type } = action;
+	const cartIndex = cart.findIndex(item => item.id === selectedProduct.id);
+	const retrievedCartItem = cart[cartIndex];
+	const checkedOutItemsIndex = checkedOutItems.findIndex(item => item.id === retrievedCartItem.id);
+	let updatedCheckedOutItems = [];
 
-        if (type === types.ADD_TO_CART) {
-            updatedCheckedOutItems = {
-                ...checkedOutItemsStart,
-                retrievedCartItem,
-                ...checkedOutItemsEnd
-            };
-        }
+	if (checkedOutItemsIndex !== -1) {
+		const checkedOutItemsStart = cart.slice(0, checkedOutItemsIndex);
+		const retrivedCheckedOutItem = checkedOutItems[checkedOutItemsIndex];
+		const checkedOutItemsEnd = cart.slice(checkedOutItemsIndex + 1);
 
-        if (type === types.REMOVE_FROM_CART) {
-            if (retrievedCartItem.qty === 1) {
-                updatedCheckedOutItems = {
-                    ...checkedOutItemsStart,
-                    ...checkedOutItemsEnd
-                };
-            } else {
-                updatedCheckedOutItems = {
-                    ...checkedOutItemsStart,
-                    retrievedCartItem,
-                    ...checkedOutItemsEnd
-                };
-            }
-        }
+		if (type === types.ADD_TO_CART) {
+			updatedCheckedOutItems = {
+				...checkedOutItemsStart,
+				retrievedCartItem,
+				...checkedOutItemsEnd
+			};
+		}
 
-        return updatedCheckedOutItems;
-    }
-}
+		if (type === types.REMOVE_FROM_CART) {
+			if (retrievedCartItem.qty === 1) {
+				updatedCheckedOutItems = {
+					...checkedOutItemsStart,
+					...checkedOutItemsEnd
+				};
+			} else {
+				updatedCheckedOutItems = {
+					...checkedOutItemsStart,
+					retrievedCartItem,
+					...checkedOutItemsEnd
+				};
+			}
+		}
+
+		return updatedCheckedOutItems;
+	}
+};
 
 export const modifyCartData = (cart, action) => {
-    const { type, selectedProduct } = action;
-    let updatedCart = [];
-    let newQty = 0;
-    let updatedCartItem = {};
-    const index = cart.findIndex(item => item.id === selectedProduct.id);
-    const retrievedCartItem = cart[index];
-    const cartStart = cart.slice(0, index);
-    const cartEnd = cart.slice(index + 1);
+	const { selectedProduct, type } = action;
+	let updatedCart = [];
+	let newQty = 0;
+	let updatedCartItem = {};
+	const index = cart.findIndex(item => item.id === selectedProduct.id);
+	const retrievedCartItem = cart[index];
+	const cartStart = cart.slice(0, index);
+	const cartEnd = cart.slice(index + 1);
 
-    if (type === types.ADD_TO_CART) {
+	if (type === types.ADD_TO_CART) {
+		if (retrievedCartItem) {
+			newQty = retrievedCartItem.qty + 1;
 
-        if (retrievedCartItem) {
-            newQty = retrievedCartItem.qty + 1;
+			updatedCartItem = {
+				...retrievedCartItem,
+				qty: newQty
+			};
 
-            updatedCartItem = {
-                ...retrievedCartItem,
-                qty: newQty
-            };
+			updatedCart = [
+				...cartStart,
+				updatedCartItem,
+				...cartEnd
+			];
+		} else {
+			const updatedSelectedProduct = {
+				...selectedProduct,
+				checked: true,
+				qty: 1
+			};
 
-            updatedCart = [
-                ...cartStart,
-                updatedCartItem,
-                ...cartEnd
-            ];
+			cart.push(updatedSelectedProduct);
 
-            cart = updatedCart;
+			return cart;
+		}
+	}
 
-        } else {
+	if (type === types.REMOVE_FROM_CART) {
+		if (retrievedCartItem.qty === 1) {
 
-            const updatedSelectedProduct = {
-                ...selectedProduct,
-                checked: true,
-                qty: 1
-            }
+			updatedCart = [
+				...cartStart,
+				...cartEnd
+			];
+		} else {
+			newQty = retrievedCartItem.qty - 1;
 
-            cart.push(updatedSelectedProduct);
+			updatedCartItem = {
+				...retrievedCartItem,
+				qty: newQty
+			};
 
-            return cart;
-        }
-    }
+			updatedCart = [
+				...cartStart,
+				updatedCartItem,
+				...cartEnd
+			];
+		}
+	}
 
-    if (type === types.REMOVE_FROM_CART) {
-        if (retrievedCartItem.qty === 1) {
-            console.log('action Type', action.type);
-            updatedCart = [
-                ...cartStart,
-                ...cartEnd
-            ];
+	if (type === types.SELECT_PRODUCT) {
+		updatedCartItem = {
+			...retrievedCartItem,
+			checked: selectedProduct.checked
+		};
 
-        } else {
-            newQty = retrievedCartItem.qty - 1;
+		updatedCart = [
+			...cartStart,
+			updatedCartItem,
+			...cartEnd
+		];
+	}
 
-            updatedCartItem = {
-                ...retrievedCartItem,
-                qty: newQty
-            };
+	if (type === types.QUICK_BUY) {
+		const updatedSelectedProduct = {
+			...selectedProduct,
+			checked: true,
+			qty: 1
+		};
 
-            updatedCart = [
-                ...cartStart,
-                updatedCartItem,
-                ...cartEnd
-            ];
-        }
-    }
+		const unselectedProducts = deSelectAllCartItems(cart);
 
-    if (type === types.CHECKED_PRODUCT) {
-        updatedCartItem = {
-            ...retrievedCartItem,
-            checked: selectedProduct.checked
-        };
+		console.log('unselect', unselectedProducts);
+		updatedCart = [
+			updatedSelectedProduct,
+			...unselectedProducts
+		];
+	}
 
-        updatedCart = [
-            ...cartStart,
-            updatedCartItem,
-            ...cartEnd
-        ];
-    }
+	return updatedCart;
+};
 
-    return updatedCart;
+export const checkOut = (cart, value) => cart.filter(cartItem => {
+	if (cartItem.checked) {
+		cartItem.status = 'checked-out';
+		return cartItem;
+	}
+});
 
-    // if (mode === types.QUICK_BUY) {
-    //     let updatedSelectedProduct = {};
+export const selectAllCartItems = cart => cart.map(item => {
+	item.checked = true;
+	return item;
+});
 
-    //     if (selectedProduct.qty === 1) {
-    //         prevState.selectedProduct = '';
-    //     } else {
-    //         updatedSelectedProduct = {
-    //             ...selectedProduct,
-    //             qty: selectedProduct.qty - 1
-    //         }
-    //         prevState.selectedProduct = updatedSelectedProduct
-    //     }
-
-    //     prevState.selectedProduct = updatedSelectedProduct;
-
-    //     return { ...prevState };
-    // }
-}
-
-export const checkOut = (cart) => {
-    console.log('carrttt', cart);
-    return cart.filter(cartItem => cartItem.checked === true);
-}
-
-
-const selectedProduct = { id: 1, name: 'Biscuits' };
-
+export const deSelectAllCartItems = cart => cart.map(item => {
+	item.checked = false;
+	return item;
+});

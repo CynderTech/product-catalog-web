@@ -1,31 +1,32 @@
+import React from 'react';
 // import Fetch from 'isomorphic-unfetch';
-import { ProductCatalogProvider } from '../components/global/useGlobalState';
-import Layout from '../components/layout/Layout';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import fetch from 'isomorphic-unfetch';
+import Layout from '../components/layout/Layout';
+import { ProductCatalogProvider } from '../components/global/useGlobalState';
 import Catalog from '../components/product/Catalog';
 import Navbar from '../components/Navbar';
 import Cart from '../components/Cart';
 import PageIndicator from '../components/PageIndicator';
+import Navigation from '../components/Navigation';
 // fetch apollo client
 const client = new ApolloClient({
-    uri: 'http://localhost:3002/admin/api',
-    fetch
+	uri: 'http://localhost:3002/admin/api',
+	fetch
 });
 
-const Index = (props) => (
-    <ProductCatalogProvider>
-        <ApolloProvider client={client}>
-            <Layout>
-                <Navbar />
-                <PageIndicator />
-                <Cart>
-                    <Catalog />
-                </Cart>
-            </Layout>
-        </ApolloProvider>
-    </ProductCatalogProvider>
+const Index = props => (
+	<ProductCatalogProvider>
+		<ApolloProvider client={client}>
+			<Layout>
+				<Navbar>
+					{/* <PageIndicator /> */}
+					<Catalog />
+				</Navbar>
+			</Layout>
+		</ApolloProvider>
+	</ProductCatalogProvider>
 );
 
 // Index.getInitialProps = async function () {
