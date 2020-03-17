@@ -9,7 +9,7 @@ import Catalog from '../components/product/Catalog';
 import Navbar from '../components/Navbar';
 import Cart from '../components/Cart';
 import PageIndicator from '../components/PageIndicator';
-import Navigation from '../components/Navigation';
+
 // fetch apollo client
 const client = new ApolloClient({
 	uri: 'http://localhost:3002/admin/api',
