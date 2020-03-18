@@ -16,7 +16,7 @@ const Catalog = () => {
 			{(mode === types.CATALOG && <ProductGrid />)
 				|| ((mode === types.QUICK_BUY || mode === types.CHECK_OUT) && <CheckOut />)
 				|| (mode === types.VIEW_PRODUCT && <ProductDetails />)
-				|| (mode === types.THANK_YOU && <ThankYouPage />)}
+				|| ((mode === types.PAYMENT_SUCCESS || mode === types.PAYMENT_ERROR) && <ThankYouPage />)}
 		</div>
 	);
 };

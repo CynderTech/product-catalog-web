@@ -12,4 +12,5 @@ export const SELECT_PRODUCT = 'SELECT_PRODUCT';
 export const EDIT_CART = 'EDIT_CART';
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const PAYMENT_DETAILS = 'PAYMENT_DETAILS';
-export const THANK_YOU = 'THANK_YOU';
+export const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
+export const PAYMENT_ERROR = 'PAYMENT_ERROR';

@@ -15,10 +15,21 @@ const ThankYouPage = () => {
 			width: '100%'
 		}}>
 			<Segment placeholder style={{ paddingTop: '200px' }} vertical>
-				<Header icon>
-					<Icon color="green" name="check" />
-					Thank you for your purchase!
-				</Header>
+				{mode === types.PAYMENT_SUCCESS
+					&& (
+						<Header icon>
+							<Icon color="green" name="check" />
+							Thank you for your purchase!
+						</Header>
+					)}
+				{mode === types.PAYMENT_ERROR
+					&& (
+						<Header icon>
+							<Icon color="red" name="close" />
+							Something went wrong!
+						</Header>
+					)}
+
 				<Button onClick={() => dispatch({ type: types.CATALOG })} primary>Back to Main Page</Button>
 			</Segment>
 		</div>

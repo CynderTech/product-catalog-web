@@ -99,7 +99,13 @@ const reducer = (state, action) => {
 			return { ...prevState };
 		}
 
-		case types.THANK_YOU: {
+		case types.PAYMENT_SUCCESS: {
+			const prevState = { ...state };
+			prevState.mode = action.type;
+			return { ...prevState };
+		}
+
+		case types.PAYMENT_ERROR: {
 			const prevState = { ...state };
 			prevState.mode = action.type;
 			return { ...prevState };
