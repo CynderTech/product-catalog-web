@@ -29,15 +29,9 @@
 	],
 	"rules": {
 		"arrow-body-style": "warn",
-		"arrow-parens": [
-			"warn",
-			"as-needed"
-		],
+		"arrow-parens": ["warn", "as-needed"],
 		"class-methods-use-this": "off",
-		"comma-dangle": [
-			"warn",
-			"only-multiline"
-		],
+		"comma-dangle": ["warn", "only-multiline"],
 		"consistent-return": "off",
 		"eol-last": "off",
 		"func-names": "off",
@@ -45,13 +39,7 @@
 		"import/imports-first": "off",
 		"import/no-extraneous-dependencies": "off",
 		"import/no-unresolved": "off",
-		"indent": [
-			"warn",
-			"tab",
-			{
-				"SwitchCase": 1
-			}
-		],
+		"indent": ["warn", "tab", { "SwitchCase": 1 }],
 		"jsx-a11y/label-has-associated-control": "off",
 		"jsx-quotes": "warn",
 		"linebreak-style": "off",
@@ -73,38 +61,16 @@
 		"no-var": "warn",
 		"object-curly-spacing": "warn",
 		"one-var": "off",
-		"quotes": [
-			"warn",
-			"single"
-		],
+		"quotes": ["warn", "single"],
 		"react/destructuring-assignment": "warn",
 		"react/display-name": "warn",
-		"react/forbid-prop-types": [
-			"warn",
-			{
-				"forbid": [
-					"any"
-				]
-			}
-		],
+		"react/forbid-prop-types": ["warn", { "forbid": ["any"] }],
 		"react/jsx-boolean-value": "warn",
-		"react/jsx-closing-bracket-location": [
-			"warn",
-			{
-				"selfClosing": "tag-aligned",
-				"nonEmpty": "after-props"
-			}
-		],
+		"react/jsx-closing-bracket-location": ["warn", { "selfClosing": "tag-aligned", "nonEmpty": "after-props" }],
 		"react/jsx-curly-spacing": "warn",
 		"react/jsx-filename-extension": "off",
-		"react/jsx-indent": [
-			"warn",
-			"tab"
-		],
-		"react/jsx-indent-props": [
-			"warn",
-			"tab"
-		],
+		"react/jsx-indent": ["warn", "tab"],
+		"react/jsx-indent-props": ["warn", "tab"],
 		"react/jsx-key": "warn",
 		"react/jsx-max-props-per-line": "warn",
 		"react/jsx-no-bind": "off",
@@ -135,11 +101,8 @@
 		"react/sort-comp": "warn",
 		"react/sort-prop-types": "warn",
 		"react/state-in-constructor": "off",
-		"react/static-property-placement": "off",
-		"semi": [
-			"warn",
-			"always"
-		],
+        "react/static-property-placement": "off",
+		"semi": ["warn", "always"],
 		"sort-destructure-keys/sort-destructure-keys": "warn"
 	},
 	"settings": {
