@@ -8,7 +8,6 @@ import { ProductCatalogProvider } from '../components/global/useGlobalState';
 import Catalog from '../components/product/Catalog';
 import Navbar from '../components/Navbar';
 import Cart from '../components/Cart';
-import PageIndicator from '../components/PageIndicator';
 
 // fetch apollo client
 const client = new ApolloClient({
@@ -19,11 +18,14 @@ const client = new ApolloClient({
 const Index = props => (
 	<ProductCatalogProvider>
 		<ApolloProvider client={client}>
+			<Navbar />
 			<Layout>
-				<Navbar>
-					{/* <PageIndicator /> */}
+
+				<Catalog />
+				{/* <Navbar>
+
 					<Catalog />
-				</Navbar>
+				</Navbar> */}
 			</Layout>
 		</ApolloProvider>
 	</ProductCatalogProvider>

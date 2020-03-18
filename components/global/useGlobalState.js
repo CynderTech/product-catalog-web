@@ -2,17 +2,18 @@ import React, { useReducer, createContext, useContext } from 'react';
 import * as types from './types';
 import { modifyCartData, checkOut } from '../product/catalogLibrary';
 
+
 const initialState = {
 	activeItem: 'home',
 	cart: [],
 	mode: types.CATALOG,
 	openCart: false,
 	selectedProduct: '',
-	products: []
+	products: [],
 };
 
 const reducer = (state, action) => {
-	console.log('ACTION', action);
+
 	switch (action.type) {
 		case 'set-products': {
 			const prevState = { ...state };
@@ -55,17 +56,18 @@ const reducer = (state, action) => {
 			const prevState = { ...state };
 			prevState.cart = modifyCartData(prevState.cart, action);
 			return { ...prevState };
+		}
 
-			// if (mode === types.QUICK_BUY) {
-			//     const updatedSelectedProduct = {
-			//         ...selectedProduct,
-			//         qty: selectedProduct.qty + 1
-			//     }
+		case types.EDIT_CART: {
+			const prevState = { ...state };
+			prevState.editCart = true;
+			return { ...prevState };
+		}
 
-			//     prevState.selectedProduct = updatedSelectedProduct;
-
-			//     return { ...prevState };
-			// }
+		case types.CLOSE_CART: {
+			const prevState = { ...state };
+			prevState.openCart = false;
+			return { ...prevState };
 		}
 
 		case types.REMOVE_FROM_CART: {
@@ -79,14 +81,14 @@ const reducer = (state, action) => {
 			return { ...prevState, openCart: true };
 		}
 
-		case types.CLOSE_CART: {
+		case types.EDIT_ITEM: {
 			const prevState = { ...state };
 			return { ...prevState, openCart: false };
 		}
 
 		case types.MODE: {
 			const prevState = { ...state };
-			prevState.mode = action.mode;
+			prevState.editCart = action.type;
 			return { ...prevState };
 		}
 

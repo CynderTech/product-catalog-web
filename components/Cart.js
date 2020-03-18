@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {
-	Button, Card, Checkbox, Grid, Ref, Header, Icon, Image, Input, Item, List, Menu, Rail, Segment, Sidebar, Sticky, Label
+	Button, Divider, Icon, Header, Card, Input, Label, Item, Checkbox, Menu, Segment, Sidebar
 } from 'semantic-ui-react';
 import numeral from 'numeral';
 import * as types from './global/types';
@@ -9,88 +9,40 @@ import { useGlobalState } from './global/useGlobalState';
 import { checkOut } from './product/catalogLibrary';
 
 const Cart = props => {
-	const [{ cart, openCart }, dispatch] = useGlobalState();
+	const [{
+		activeItem, cart, mode, openCart
+	}, dispatch] = useGlobalState();
+	const totalItems = cart.reduce((a, b) => a + (b.qty || 0), 0);
+	const total = cart.filter(item => item.checked === true).reduce((a, b) => a + (b.price * b.qty || 0), 0);
 
 	return (
-		<Sidebar.Pushable as={Segment}>
-			<Sidebar
-				animation="overlay"
-				as={Card}
-				direction="right"
-				inverted="true"
-				onHide={() => dispatch({ type: types.CLOSE_CART })}
-				vertical="true"
-				visible={openCart}
-				width="wide">
-				<Segment>
-					<Header as="a">
+		<>
+			<Segment basic style={{ marginBottom: '1px', paddingBottom: '1px' }}>
+				<Header as="h4">
+					<span style={{ color: 'grey' }}>
 						<Icon color="grey" name="cart" />
-						<span style={{ color: 'grey' }}>Cart Moto</span>
-					</Header>
-					<Button basic color="red" disabled={checkOut(cart).length === 0} floated="right" onClick={() => dispatch({ type: types.CHECK_OUT })} size="tiny">Check Out</Button>
-				</Segment>
-				{cart.length !== 0
+						Cart Moto
+					</span>
+				</Header>
+			</Segment>
+			<Divider style={{ marginBottom: '10px' }} />
+			{
+				cart.length !== 0
 					? (
-						<Segment raised style={{ overflow: 'auto', maxHeight: '100vh' }}>
-							<Item.Group divided>
-								{cart.map(item => (
-									<Item key={`${item.id}`}>
-										<Item.Content>
-											<Checkbox
-												defaultChecked
-												floated="left"
-												onChange={(e, props) => dispatch({ type: types.SELECT_PRODUCT, selectedProduct: { ...item, checked: props.checked } })}
-											/>
-										</Item.Content>
-										<Item.Content>
-											<Item.Image floated="left" rounded size="tiny" src={item.img} />
-										</Item.Content>
-										<Item.Content>
-											<Header
-												as="h5"
-												style={{
-													width: '150px',
-													whiteSpace: 'nowrap',
-													overflow: 'hidden',
-													textOverflow: 'ellipsis'
-												}}>
-												{item.name}
-											</Header>
-											<Item.Meta floated="right">
-												<span style={{ color: 'green' }}>{numeral(item.price || 0).format('$ 0,0.00')}</span>
-											</Item.Meta>
-											{/* <Item.Description>
-                                     <p style={{
-                                         width: "100px",
-                                         whiteSpace: "nowrap",
-                                         overflow: "hidden",
-                                         textOverflow: "ellipsis"
-                                     }}>  {item.desc}</p>
-                                 </Item.Description> */}
-											<Input>
-												<Button.Group basic floated="left" size="mini">
-													<Button icon="minus" onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: item })} />
-													<input
-														onChange={e => console.log(e.target.value)}
-														style={{
-															width: '50px',
-															textAlign: 'center',
-															fontSize: '10px',
-															borderStyle: 'groove',
-														}}
-														value={item.qty}
-													/>
-													<Button icon="add" onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: item })} />
-												</Button.Group>
-											</Input>
-										</Item.Content>
-										<Item.Content />
-									</Item>
-								))}
-							</Item.Group>
-						</Segment>
-					)
-					: (
+						<Item.Group
+							divided
+							style={{
+								marginTop: '0px',
+								marginLeft: '10px',
+								overflow: 'auto',
+								marginBottom: '0px',
+							}}>
+							{cart.map(data => React.cloneElement({
+								...props.children,
+								key: data.id
+							}, data))}
+						</Item.Group>
+					) : (
 						<Segment placeholder>
 							<Header icon>
 								<span style={{ color: 'grey' }}>
@@ -99,14 +51,16 @@ const Cart = props => {
 								</span>
 							</Header>
 						</Segment>
-					)}
-			</Sidebar>
-			<Sidebar.Pusher>
-				<Segment >
-					{props.children}
-				</Segment>
-			</Sidebar.Pusher>
-		</Sidebar.Pushable>
+					)
+			}
+			<Segment raised>
+				<span floated="left">
+					{'Total: '}
+					<span style={{ color: 'green' }}>{numeral(total || 0).format('$ 0,0.00')}</span>
+				</span>
+				<Button basic color="red" disabled={checkOut(cart).length === 0} floated="left" floated="right" floated="right" onClick={() => dispatch({ type: types.CHECK_OUT })} size="tiny">Check Out</Button>
+			</Segment>
+		</>
 	);
 };
 

@@ -7,7 +7,6 @@ import numeral from 'numeral';
 import * as types from '../global/types';
 import { useGlobalState } from '../global/useGlobalState';
 
-
 const ProductCard = ({ data }) => {
 	const {
 		desc, img, name, price

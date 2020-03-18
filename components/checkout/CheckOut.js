@@ -160,7 +160,6 @@ const CheckOut = () => {
 					</Grid>
 				</Grid.Column>
 			</Grid>
-
 		</>
 	);
 };

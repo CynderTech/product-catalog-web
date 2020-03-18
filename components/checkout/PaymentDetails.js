@@ -5,6 +5,7 @@ import {
 
 const PaymentDetails = () => {
 	const [cardType, setCardType] = useState('');
+
 	const options1 = [
 		{ key: 1, text: '01', value: 1 },
 		{ key: 2, text: '02', value: 2 },
@@ -68,7 +69,7 @@ const PaymentDetails = () => {
 
 					<Dropdown compact options={options2} selection text="Year" />
 
-					<Input basic floated="right" floated="right" placeholder="CVC" style={{ width: '60px' }} />
+					<Input floated="right" floated="right" placeholder="CVC" style={{ width: '60px' }} />
 
 				</Segment>
 
