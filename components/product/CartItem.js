@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-	Button, Divider, Icon, Header, Popup, Card, Input, Label, Item, SideBar, Reveal, Checkbox, Menu, Segment, Sidebar
+	Button, Icon, Header, Input, Label, Item, Checkbox
 } from 'semantic-ui-react';
 import numeral from 'numeral';
 import * as types from '../global/types';
@@ -8,10 +8,8 @@ import { useGlobalState } from '../global/useGlobalState';
 
 const CartItem = data => {
 	const [hovered, setHovered] = useState(false);
-	const [{
-		activeItem, cart, mode, openCart
-	}, dispatch] = useGlobalState();
-	console.log('hocered', hovered);
+	const [, dispatch] = useGlobalState();
+
 	return (
 		<Item on="hover" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{ marginRight: '0px' }}>
 			<Item.Content>

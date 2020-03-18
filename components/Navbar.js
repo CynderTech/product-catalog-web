@@ -17,9 +17,6 @@ const Navbar = props => {
 	}, dispatch] = useGlobalState();
 	const totalItems = cart.reduce((a, b) => a + (b.qty || 0), 0);
 	const total = cart.filter(item => item.checked === true).reduce((a, b) => a + (b.price * b.qty || 0), 0);
-	let link = '';
-	if (mode === types.CHECK_OUT || mode === types.QUICK_BUY) link = 'Check Out';
-	if (mode === types.VIEW_PRODUCT || mode === types.VIEW_PRODUCT) link = 'Product Details';
 
 	return (
 		<Segment basic style={{ paddingTop: '10px', paddingBottom: '0px' }}>
@@ -44,11 +41,10 @@ const Navbar = props => {
 								<Icon name="angle left" size="large" />
 							</Menu.Item>
 							<Menu.Item>
-								<span>Billing Details</span>
+								<span><h3>Payment Details</h3></span>
 							</Menu.Item>
 						</Menu.Menu>
 					)}
-
 				<Menu.Menu position="right">
 					<Menu.Item>
 						<Input icon="search" placeholder="Search..." />

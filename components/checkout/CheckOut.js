@@ -11,7 +11,7 @@ import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
 
 const placeOrder = data => {
-	console.log('data', data);
+
 	const testKey = 'pk_test_1FZShWVgMRgWhXBphmMBE2tp';
 	/**
      * https://developers.paymongo.com/docs/authentication
@@ -91,16 +91,6 @@ const CheckOut = () => {
 				<PaymentDetails />
 			</Grid.Column>
 			<Grid.Column>
-				{/* <Header as="h3">
-						Check Out
-					</Header>
-					<Divider /> */}
-				{/* divided
-						row={1}
-						style={{
-							marginLeft: '10px', marginRight: '30px', overflow: 'auto', maxHeight: '50vh'
-						}}
-						textAlign="center"> */}
 				<Card.Group style={{
 					overflow: 'auto', maxHeight: '70vh'
 				}}>
@@ -129,7 +119,10 @@ const CheckOut = () => {
 							basic
 							color="red"
 							floated="left"
-							onClick={() => placeOrder(constructYourHeaderHere)}>
+							onClick={() => {
+								placeOrder(constructYourHeaderHere);
+								dispatch({ type: types.THANK_YOU });
+							}}>
 							Place Order
 						</Button>
 					</Grid.Column>

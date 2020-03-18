@@ -121,7 +121,6 @@ export const modifyCartData = (cart, action) => {
 
 		const unselectedProducts = deSelectAllCartItems(cart);
 
-		console.log('unselect', unselectedProducts);
 		updatedCart = [
 			updatedSelectedProduct,
 			...unselectedProducts

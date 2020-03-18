@@ -95,14 +95,13 @@ const reducer = (state, action) => {
 
 		case types.CATALOG: {
 			const prevState = { ...state };
-			prevState.activeItem = 'home';
-			prevState.mode = action.mode;
+			prevState.mode = action.type;
 			return { ...prevState };
 		}
 
-		case types.PAGE: {
+		case types.THANK_YOU: {
 			const prevState = { ...state };
-			prevState.activeItem = action.activeItem;
+			prevState.mode = action.type;
 			return { ...prevState };
 		}
 

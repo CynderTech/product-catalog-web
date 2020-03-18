@@ -8,7 +8,6 @@ import Cart from '../Cart';
 import CartItems from '../product/CartItem';
 
 const SidebarX = props => {
-	console.log('sideBart', props);
 	const [{
 		activeItem, cart, mode, openCart
 	}, dispatch] = useGlobalState();

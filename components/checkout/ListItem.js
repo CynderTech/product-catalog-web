@@ -1,23 +1,18 @@
 import React from 'react';
 import {
-	Card, Button, Icon, Image, Grid, Segment, Label
+	Card, Icon, Image, Grid
 } from 'semantic-ui-react';
 import numeral from 'numeral';
-import * as types from '../global/types';
-import { useGlobalState } from '../global/useGlobalState';
 
 const ListItem = ({ data }) => {
 	const {
-		desc, img, name, price, qty
+		img, name, price, qty
 	} = data;
-	const [{ cart, mode, selectedProduct }, dispatch] = useGlobalState();
 
 	return (
 
 		<Card fluid>
 			<Card.Content>
-				{/* <Label as="a" circular centered outline floating size="large">X</Label>
-*/}
 				<Grid columns={2}>
 					<Grid.Column>
 						<Image
