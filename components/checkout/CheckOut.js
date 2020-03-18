@@ -12,41 +12,56 @@ import { checkOut } from '../product/catalogLibrary';
 
 const placeOrder = data => {
 	console.log('data', data);
-	const testKey = 'pk_test_1FZShWVgMRgWhXBphmMBE2tp';
+    const testKey = 'pk_test_1FZShWVgMRgWhXBphmMBE2tp';
+    const skTest = 'sk_test_YXvSu6uthuoQwQgLWp8m4Ljb';
 	/**
      * https://developers.paymongo.com/docs/authentication
      */
-	// const base64encoded = Buffer.from(testKey).toString('base64');
+    const base64encoded = Buffer.from(testKey).toString('base64');
+    const base64encodedNext = Buffer.from(skTest).toString('base64')
 
-	// const createToken = {
-	// 	method: 'POST',
-	// 	url: 'https://api.paymongo.com/v1/tokens',
-	// 	headers: {
-	// 		'Content-Type': 'application/json',
-	// 		Accept: 'application/json',
-	// 		// 'Authorization': `Basic ${base64encoded}`,
-	// 	},
-	// 	data: {
-	// 		data: {
-	// 			attributes: {
-	// 				number: credit_card_number,
-	// 				exp_month,
-	// 				exp_year,
-	// 				cvc,
-	// 			},
-	// 		}
-	// 	}
-	// };
+	const createToken = {
+	    method: 'POST',
+	 	url: 'https://api.paymongo.com/v1/tokens',
+	 	headers: {
+	 		'Content-Type': 'application/json',
+	 		'Accept': 'application/json',
+            'Authorization': `Basic ${base64encoded}`,
+        },
+        data,
+    };
 
-	// axios(createToken)
-	// 	.then(response => console.log('First Name: ', data))
-	// 	// .then(response => console.log('Check1: ', response.data))
-	// 	.catch(err => console.log('Data: ', data, 'Error1Check: ', JSON.stringify(err.response.data)));
-	// .catch(err => console.log('Error1Check: ', data));
+    const createPayment = {
+	    method: 'POST',
+	 	url: 'https://api.paymongo.com/v1/payments',
+	 	headers: {
+	 		'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Basic ${base64encoded}`,
+            'Authorization': `Basic ${base64encodedNext}`,
+        },
+        data: {
+            attributes: {
+                amount: total,
+                source: {
+                    id: data.id,
+                    type: data.type
+                }
+            }
+        }
+    };
 
-	// axios(createPayment)
-	//     .then(response => console.log('Check2: ', response.data))
-	//     .catch(err => console.log('Error2Check: ', JSON.stringify(err.response.data)));
+    console.log('ptngina: ', createToken);
+ 
+	axios(createToken)
+	 	//.then(response => console.log('First Name: ', data))
+	 	.then(response => console.log('Check1: ', response.data))
+	 	.catch(err => console.log('Error1Check: ', JSON.stringify(err.response.data)));
+	    //.catch(err => console.log('Error1Check: ', data));
+
+	axios(createPayment)
+	    .then(response => console.log('Check2: ', response.data))
+	    .catch(err => console.log('Error2Check: ', JSON.stringify(err.response.data)));
 };
 
 const CheckOut = () => {
@@ -74,14 +89,12 @@ const CheckOut = () => {
 
 	const constructYourHeaderHere = {
 		data: {
-			data: {
-				attributes: {
-					number: cardNumber,
-					exp_month: expMonth,
-					exp_year: expYear,
-					cvc,
-				}
-			}
+            attributes: {
+                number: cardNumber,
+                exp_month: expMonth,
+                exp_year: expYear,
+                cvc,
+            }
 		}
 	};
 
@@ -129,7 +142,7 @@ const CheckOut = () => {
 							basic
 							color="red"
 							floated="left"
-							onClick={() => placeOrder(constructYourHeaderHere)}>
+							onClick={() => placeOrder(constructYourHeaderHere, total)}>
 							Place Order
 						</Button>
 					</Grid.Column>
