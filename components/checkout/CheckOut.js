@@ -10,7 +10,7 @@ import PaymentDetails from './PaymentDetails';
 import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
 
-const placeOrder = (data, totalWithShipping) => {
+const placeOrder = (data, converted) => {
 	console.log('data', data);
     const testKey = 'pk_test_1FZShWVgMRgWhXBphmMBE2tp';
     const skTest = 'sk_test_YXvSu6uthuoQwQgLWp8m4Ljb';
@@ -31,56 +31,54 @@ const placeOrder = (data, totalWithShipping) => {
         data,
     };
 
-    {/*const retrieveToken = {
-        method: 'GET',
-        url: 'https://api.paymongo.com/v1/tokens/id',
-        headers: {
-            accept: 'application/json',
-            authorization: 'Basic anVzdGluQGN5bmRlci5pbzpTaGlub3BoMg=='
-        },
-        id: id,
-        type: type,
-    };*/}
-
-    const createPayment = {
-	    method: 'POST',
-	 	url: 'https://api.paymongo.com/v1/payments',
-	 	headers: {
-	 		'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Basic ${base64encoded}`,
-            'Authorization': `Basic ${base64encodedNext}`,
-        },
-        data: {
-            attributes: {
-                amount: totalWithShipping,
-                source: {
-                    id: retrieveToken.id,
-                    type: retrieveToken.type,
-                }
-            }
-        }
-    };
-
     console.log('ptngina: ', createToken);
-    console.log('chill: ', createPayment);
  
 	axios(createToken)
 	 	//.then(response => console.log('First Name: ', data))
 	 	.then(response => {
             // const { data } = response;
-            const data = response.data;
+            const data = response.data.data;
         
             // const { id, type } = data;
             const id = data.id;
             const type = data.type;
+
+            console.log("Type", response);
+            processPayment(id, type);
           })
 	 	.catch(err => console.log('Error1Check: ', JSON.stringify(err.response.data)));
         //.catch(err => console.log('Error1Check: ', data));
+    
+    function processPayment(id, type) {
+        const createPayment = {
+            method: 'POST',
+             url: 'https://api.paymongo.com/v1/payments',
+             headers: {
+                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Basic ${base64encodedNext}`,
+            },
+            data: {
+                data: {
+                    attributes: {
+                        amount: converted,
+                        currency: "PHP",
+                        source: {
+                            id,
+                            type
+                        }
+                    }
+                }
+            }
+        };
 
-	axios(createPayment)
-	    .then(response => console.log('Check2: ', response.data))
-	    .catch(err => console.log('Error2Check: ', JSON.stringify(err.response.data)));
+        console.log("att: ", createPayment);
+
+        return axios(createPayment)
+            .then(response => console.log('Check2: ', response.data))
+            .catch(err => console.log('Error2Check: ', JSON.stringify(err.response.data)));
+    }
+	
 };
 
 const CheckOut = () => {
@@ -106,6 +104,7 @@ const CheckOut = () => {
 	const totalItems = items.reduce((a, b) => a + (b.qty || 0), 0);
     const total = items.reduce((a, b) => a + (b.price * b.qty || 0), 0);
     const totalWithShipping = total + 50;
+    const converted = totalWithShipping * 100;
 
 	const constructYourHeaderHere = {
 		data: {
@@ -162,7 +161,7 @@ const CheckOut = () => {
 							basic
 							color="red"
 							floated="left"
-							onClick={() => placeOrder(constructYourHeaderHere, totalWithShipping)}>
+							onClick={() => placeOrder(constructYourHeaderHere, converted)}>
 							Place Order
 						</Button>
 					</Grid.Column>
