@@ -11,12 +11,39 @@ import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
 
 const placeOrder = (data) => {
-	console.log('passs the data from parameter if you need something from the main function', data);
-	console.log('you can put calls and everything');
 
-	// axios(createToken)
-	//     .then(response => console.log('Check1: ', response.data))
-	//     .catch(err => console.log('Error1Check', JSON.stringify(err.response.data)));
+
+    const testKey = 'pk_test_1FZShWVgMRgWhXBphmMBE2tp';
+    /**
+     * https://developers.paymongo.com/docs/authentication
+     */
+    const base64encoded = Buffer.from(testKey).toString('base64');
+
+    var createToken = {
+        method: 'POST',
+        url: 'https://api.paymongo.com/v1/tokens',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Basic ${base64encoded}`,
+        },
+        data: {
+            data: {
+                attributes: {
+                    number: credit_card_number,
+                    exp_month: exp_month,
+                    exp_year: exp_year,
+                    cvc: cvc,
+                },
+            }
+        }
+    };
+
+    axios(createToken)
+        .then(response => console.log('First Name: ', data))
+        //.then(response => console.log('Check1: ', response.data))
+        .catch(err => console.log('Data: ', data, 'Error1Check: ', JSON.stringify(err.response.data)));
+        //.catch(err => console.log('Error1Check: ', data));
 
 	// axios(createPayment)
 	//     .then(response => console.log('Check2: ', response.data))
@@ -26,13 +53,13 @@ const placeOrder = (data) => {
 const CheckOut = () => {
 
 	const [{ cart, mode, selectedProduct }, dispatch] = useGlobalState();
-	const [{ first_name }, setFirstName] = useState({ first_name: '' });
+    const [{ first_name }, setFirstName] = useState({ first_name: '' });
 	const [{ middle_name }, setMiddleName] = useState({ middle_name: '' });
 	const [{ last_name }, setLastName] = useState({ last_name: '' });
 	const [{ credit_card_number }, setCreditCard] = useState({ credit_card_number: '' });
 	const [{ exp_month }, setExpMonth] = useState({ exp_month: '' });
 	const [{ exp_year }, setExpYear] = useState({ exp_year: '' });
-	const [{ cvc }, setCvc] = useState({ cvc: '' });
+    const [{ cvc }, setCvc] = useState({ cvc: '' });
 
 	let items = [];
 
@@ -43,7 +70,16 @@ const CheckOut = () => {
 	const total = items.reduce((a, b) => a + (b.price * b.qty || 0), 0);
 
 	const constructYourHeaderHere = {
-		data: 'data'
+        data: {
+            data: {
+                attributes: {
+                    number: credit_card_number,
+                    exp_month: exp_month,
+                    exp_year: exp_year,
+                    cvc: cvc,
+                }
+            }
+        }
 	};
 
 	return (
@@ -55,6 +91,38 @@ const CheckOut = () => {
 					</Header>
 					<Divider clearing /> */}
 					<PaymentDetails />
+                    <Form.Field>
+						<Label>Credit Card Number *</Label>
+						<Input
+							onChange={e => setCreditCard({ credit_card_number: e.target.value })}
+							placeholder="Credid Card Number"
+							value={credit_card_number}
+						/>
+					</Form.Field>
+                    <Form.Field>
+						<Label>Exp_Month *</Label>
+						<Input
+							onChange={e => setExpMonth({ exp_month: e.target.value })}
+							placeholder="Expiration Month"
+							value={exp_month}
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Label>Exp_Year *</Label>
+						<Input
+							onChange={e => setExpYear({ exp_year: e.target.value })}
+							placeholder="Expiration Year"
+							value={exp_year}
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Label>CVC *</Label>
+						<Input
+							onChange={e => setCvc({ cvc: e.target.value })}
+							placeholder="CVC"
+							value={cvc}
+						/>
+					</Form.Field>
 					{/* <Form>
 						<Form.Field>
 							<Label>First Name *</Label>
