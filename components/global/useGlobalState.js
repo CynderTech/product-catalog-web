@@ -10,6 +10,7 @@ const initialState = {
 	openCart: false,
 	selectedProduct: '',
 	products: [],
+	paymentDetails: {}
 };
 
 const reducer = (state, action) => {
@@ -102,6 +103,16 @@ const reducer = (state, action) => {
 		case types.PAGE: {
 			const prevState = { ...state };
 			prevState.activeItem = action.activeItem;
+			return { ...prevState };
+		}
+
+		case types.PAYMENT_DETAILS: {
+			const prevState = { ...state };
+			const key = Object.keys(action)[1];
+			prevState.paymentDetails = {
+				...prevState.paymentDetails,
+				[Object.keys(action)[1]]: action[key]
+			};
 			return { ...prevState };
 		}
 
