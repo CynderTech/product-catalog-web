@@ -10,7 +10,7 @@ import PaymentDetails from './PaymentDetails';
 import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
 
-const placeOrder = data => {
+const placeOrder = (data, totalWithShipping) => {
 	console.log('data', data);
     const testKey = 'pk_test_1FZShWVgMRgWhXBphmMBE2tp';
     const skTest = 'sk_test_YXvSu6uthuoQwQgLWp8m4Ljb';
@@ -31,6 +31,17 @@ const placeOrder = data => {
         data,
     };
 
+    {/*const retrieveToken = {
+        method: 'GET',
+        url: 'https://api.paymongo.com/v1/tokens/id',
+        headers: {
+            accept: 'application/json',
+            authorization: 'Basic anVzdGluQGN5bmRlci5pbzpTaGlub3BoMg=='
+        },
+        id: id,
+        type: type,
+    };*/}
+
     const createPayment = {
 	    method: 'POST',
 	 	url: 'https://api.paymongo.com/v1/payments',
@@ -42,22 +53,30 @@ const placeOrder = data => {
         },
         data: {
             attributes: {
-                amount: total,
+                amount: totalWithShipping,
                 source: {
-                    id: data.id,
-                    type: data.type
+                    id: retrieveToken.id,
+                    type: retrieveToken.type,
                 }
             }
         }
     };
 
     console.log('ptngina: ', createToken);
+    console.log('chill: ', createPayment);
  
 	axios(createToken)
 	 	//.then(response => console.log('First Name: ', data))
-	 	.then(response => console.log('Check1: ', response.data))
+	 	.then(response => {
+            // const { data } = response;
+            const data = response.data;
+        
+            // const { id, type } = data;
+            const id = data.id;
+            const type = data.type;
+          })
 	 	.catch(err => console.log('Error1Check: ', JSON.stringify(err.response.data)));
-	    //.catch(err => console.log('Error1Check: ', data));
+        //.catch(err => console.log('Error1Check: ', data));
 
 	axios(createPayment)
 	    .then(response => console.log('Check2: ', response.data))
@@ -85,7 +104,8 @@ const CheckOut = () => {
 	if (mode === types.QUICK_BUY) items.push(selectedProduct);
 
 	const totalItems = items.reduce((a, b) => a + (b.qty || 0), 0);
-	const total = items.reduce((a, b) => a + (b.price * b.qty || 0), 0);
+    const total = items.reduce((a, b) => a + (b.price * b.qty || 0), 0);
+    const totalWithShipping = total + 50;
 
 	const constructYourHeaderHere = {
 		data: {
@@ -135,14 +155,14 @@ const CheckOut = () => {
 						<h4>
 							<span>
 								Total Payment:
-								<span style={{ color: 'green' }}>{` ${numeral(total !== 0 ? total + 50 : 0).format('$ 0,0.00')}`}</span>
+								<span style={{ color: 'green' }}>{` ${numeral(total !== 0 ? totalWithShipping : 0).format('$ 0,0.00')}`}</span>
 							</span>
 						</h4>
 						<Button
 							basic
 							color="red"
 							floated="left"
-							onClick={() => placeOrder(constructYourHeaderHere, total)}>
+							onClick={() => placeOrder(constructYourHeaderHere, totalWithShipping)}>
 							Place Order
 						</Button>
 					</Grid.Column>
