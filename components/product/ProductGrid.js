@@ -12,7 +12,7 @@ import ProductCard from './ProductCard';
 const ALL_PRODUCTS = gql`
     query {
         allProducts {
-            id,
+			id,
             name,
             desc,
             price
@@ -98,15 +98,15 @@ const dataMoto = [
 const ProductGrid = () => {
 	const [{ mode }, dispatch] = useGlobalState();
 
-	// const { error, loading, data } = useQuery(ALL_PRODUCTS);
-	// if (loading) return null;
-	// if (error) return `Error! ${error}`;
+	const { error, loading, data } = useQuery(ALL_PRODUCTS);
+	if (loading) return null;
+	if (error) return `Error! ${error}`;
 
 	return (
 		// <Grid container stretched verticalAlign="top" divided="vertically" padded="vertically" columns={4} doubling stackable>
 		// 	<Grid.Row>
 		<Card.Group doubling itemsPerRow={4} stackable>
-			{dataMoto.map((product, index) => (
+			{data.allProducts.map((product, index) => (
 				<ProductCard key={`${product.id}`} data={product} />
 			))}
 		</Card.Group>
