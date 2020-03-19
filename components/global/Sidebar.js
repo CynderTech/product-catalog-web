@@ -2,7 +2,6 @@ import React from 'react';
 import {
 	Button, Divider, Icon, Header, Card, Input, Label, Item, Checkbox, Menu, Segment, Sidebar
 } from 'semantic-ui-react';
-import toastr from 'toastr';
 import * as types from './types';
 import { useGlobalState } from './useGlobalState';
 import Cart from '../Cart';
