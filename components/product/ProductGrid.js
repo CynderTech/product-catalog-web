@@ -15,7 +15,10 @@ const ALL_PRODUCTS = gql`
 			id,
             name,
             desc,
-            price
+			price,
+			file {
+				publicUrl
+			}
         }
     }
 `;

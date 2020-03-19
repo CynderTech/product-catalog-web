@@ -10,13 +10,12 @@ import { useGlobalState } from '../global/useGlobalState';
 
 const ProductCard = ({ data }) => {
 	const {
-		desc, img, name, price
+		desc, file, name, price
 	} = data;
 	const [{ cart }, dispatch] = useGlobalState();
-
 	return (
 		<Card raised>
-			<Image rounded size="large" src={img} ui wrapped />
+			<Image rounded size="large" src={`http://localhost:3002${((file || {}).publicUrl || '')}`} ui wrapped />
 			<Card.Content>
 				<Card.Header
 					as="a"
