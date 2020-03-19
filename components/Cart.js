@@ -49,33 +49,39 @@ const Cart = props => {
 									<Icon name="cart arrow down" />
 									You have no items in your shopping cart
 								</span>
+
 							</Header>
+							<Button onClick={() => dispatch({ type: types.CATALOG })} primary>Show Now</Button>
 						</Segment>
 					)
 			}
-			<Segment style={{ marginTop: '0px', paddingTop: '15px' }}>
-				<span style={{
-					position: 'relative',
-					left: '10px',
-					fontSize: '18px'
-				}}>
-					{'Total: '}
-					<span style={{ color: 'green' }}>{numeral(total || 0).format('$ 0,0.00')}</span>
-				</span>
-				<Button
-					basic
-					color="red"
-					disabled={checkOut(cart).length === 0}
-					onClick={() => dispatch({ type: types.CHECK_OUT })}
-					size="large"
-					style={{
-						position: 'relative',
-						left: '50px',
-						bottom: '3px'
-					}}>
-					Check Out
-				</Button>
-			</Segment>
+			{cart.length !== 0
+				&& (
+					<Segment style={{ marginTop: '0px', paddingTop: '15px' }}>
+						<span style={{
+							position: 'relative',
+							left: '10px',
+							fontSize: '18px'
+						}}>
+							{'Total: '}
+							<span style={{ color: 'green' }}>{numeral(total || 0).format('$ 0,0.00')}</span>
+						</span>
+						<Button
+							basic
+							color="red"
+							disabled={checkOut(cart).length === 0}
+							onClick={() => dispatch({ type: types.CHECK_OUT })}
+							size="large"
+							style={{
+								position: 'relative',
+								left: '50px',
+								bottom: '3px'
+							}}>
+							Check Out
+						</Button>
+					</Segment>
+				)}
+
 		</>
 	);
 };
