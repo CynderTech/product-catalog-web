@@ -25,7 +25,7 @@ const placeOrder = (data, converted, dispatch) => {
 		headers: {
 			'Content-Type': 'application/json',
 			Accept: 'application/json',
-			// 'Authorization': `Basic ${base64encoded}`,
+			'Authorization': `Basic ${base64encoded}`,
 		},
 		data,
 	};
@@ -55,7 +55,7 @@ const placeOrder = (data, converted, dispatch) => {
 			headers: {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
-				// 'Authorization': `Basic ${base64encodedNext}`,
+				'Authorization': `Basic ${base64encodedNext}`,
 			},
 			data: {
 				data: {
