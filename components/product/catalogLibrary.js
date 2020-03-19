@@ -77,6 +77,7 @@ export const modifyCartData = (cart, action) => {
 	}
 
 	if (type === types.REDUCE_FROM_CART) {
+
 		if (retrievedCartItem.qty === 1) {
 			updatedCart = [
 				...cartStart,
@@ -99,6 +100,7 @@ export const modifyCartData = (cart, action) => {
 	}
 
 	if (type === types.REMOVE_FROM_CART) {
+
 		updatedCart = [
 			...cartStart,
 			...cartEnd

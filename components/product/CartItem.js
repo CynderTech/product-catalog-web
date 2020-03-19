@@ -51,23 +51,26 @@ const CartItem = data => {
 					}}>
 					<Icon name="close" />
 				</Label>
-
-				<Item.Meta floated="left">
+				<Item.Content>
 					<span style={{ color: 'green' }}>{numeral(data.price || 0).format('$ 0,0.00')}</span>
+				</Item.Content>
+				<Item.Meta floated="left">
+
 					<Input>
 						<Button.Group basic floated="left" size="mini">
-							<Button icon="minus" onClick={() => dispatch({ type: types.REDUCE_FROM_CART, selectedProduct: data })} />
+							<Button icon="minus" onClick={() => dispatch({ type: types.REDUCE_FROM_CART, selectedProduct: data })} style={{ borderStyle: 'hidden' }} />
 							<input
 								onChange={e => console.log(e.target.value)}
 								style={{
-									width: '50px',
+									width: '60px',
 									textAlign: 'center',
 									fontSize: '10px',
 									borderStyle: 'groove',
+									borderColor: '#CDCBBE'
 								}}
 								value={data.qty}
 							/>
-							<Button icon="add" onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })} />
+							<Button icon="add" onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })} style={{ borderStyle: 'hidden' }} />
 						</Button.Group>
 					</Input>
 				</Item.Meta>
