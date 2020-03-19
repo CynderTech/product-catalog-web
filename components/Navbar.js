@@ -25,10 +25,10 @@ const Navbar = props => {
 					&& (
 						<Menu.Item
 							active={activeItem === 'home'}
-							name="buy moto"
+							name="shop moto"
 							onClick={(e, { name }) => dispatch({ type: types.CATALOG, mode: types.CATALOG })}>
-							<Icon name="bitcoin" size="large" />
-							<span style={{ color: 'white' }}>Buy Moto</span>
+							<Icon name="shopping bag" size="large" />
+							<span style={{ color: 'white' }}>Shop Moto</span>
 						</Menu.Item>
 					)}
 				{(mode === types.CHECK_OUT || mode === types.QUICK_BUY)
@@ -36,12 +36,26 @@ const Navbar = props => {
 						<Menu.Menu>
 							<Menu.Item
 								active={activeItem === 'payment'}
-								name="buy moto"
+								name="payment"
 								onClick={(e, { name }) => dispatch({ type: types.CATALOG, mode: types.CATALOG })}>
 								<Icon name="angle left" size="large" />
 							</Menu.Item>
 							<Menu.Item>
 								<span><h3>Payment Details</h3></span>
+							</Menu.Item>
+						</Menu.Menu>
+					)}
+				{(mode === types.VIEW_PRODUCT)
+					&& (
+						<Menu.Menu>
+							<Menu.Item
+								active={activeItem === 'product'}
+								name="product"
+								onClick={(e, { name }) => dispatch({ type: types.CATALOG, mode: types.CATALOG })}>
+								<Icon name="angle left" size="large" />
+							</Menu.Item>
+							<Menu.Item>
+								<span><h3>Product Details</h3></span>
 							</Menu.Item>
 						</Menu.Menu>
 					)}
@@ -55,7 +69,7 @@ const Navbar = props => {
 						style={{ paddingTop: '10px' }}>
 						<Icon name="cart" size="large" style={{ color: 'white' }} />
 						{' '}
-						<span style={{ color: 'white' }}>Cart</span>
+						<span style={{ color: 'white' }} />
 						{totalItems !== 0 && (
 							<Label circular color="red" floating size="small">
 								{totalItems}

@@ -3,9 +3,11 @@ import React from 'react';
 import {
 	Button, Card, Icon, Image, Label, Div
 } from 'semantic-ui-react';
+import toastr from 'toastr';
 import numeral from 'numeral';
 import * as types from '../global/types';
 import { useGlobalState } from '../global/useGlobalState';
+
 
 const ProductCard = ({ data }) => {
 	const {
@@ -40,7 +42,9 @@ const ProductCard = ({ data }) => {
 					{/* <Button onClick={() => dispatch({ type: types.VIEW_PRODUCT, selectedProduct: data })}>
                         View
                     </Button> */}
-					<Button onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })}>
+					<Button onClick={() => {
+						dispatch({ type: types.ADD_TO_CART, selectedProduct: data });
+					}}>
 						<Icon color="red" name="add to cart" />
 						{' '}
 						Add to Cart

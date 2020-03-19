@@ -71,6 +71,12 @@ const reducer = (state, action) => {
 			return { ...prevState };
 		}
 
+		case types.REDUCE_FROM_CART: {
+			const prevState = { ...state };
+			prevState.cart = modifyCartData(prevState.cart, action);
+			return { ...prevState };
+		}
+
 		case types.REMOVE_FROM_CART: {
 			const prevState = { ...state };
 			prevState.cart = modifyCartData(prevState.cart, action);

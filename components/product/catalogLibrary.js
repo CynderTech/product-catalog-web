@@ -20,7 +20,7 @@ export const syncSelector = (action, checkedOutItems, cart) => {
 			};
 		}
 
-		if (type === types.REMOVE_FROM_CART) {
+		if (type === types.REDUCE_FROM_CART) {
 			if (retrievedCartItem.qty === 1) {
 				updatedCheckedOutItems = {
 					...checkedOutItemsStart,
@@ -76,9 +76,8 @@ export const modifyCartData = (cart, action) => {
 		}
 	}
 
-	if (type === types.REMOVE_FROM_CART) {
+	if (type === types.REDUCE_FROM_CART) {
 		if (retrievedCartItem.qty === 1) {
-
 			updatedCart = [
 				...cartStart,
 				...cartEnd
@@ -97,6 +96,13 @@ export const modifyCartData = (cart, action) => {
 				...cartEnd
 			];
 		}
+	}
+
+	if (type === types.REMOVE_FROM_CART) {
+		updatedCart = [
+			...cartStart,
+			...cartEnd
+		];
 	}
 
 	if (type === types.SELECT_PRODUCT) {

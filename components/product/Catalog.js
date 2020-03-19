@@ -1,5 +1,8 @@
 
 import React from 'react';
+import {
+	Dimmer, Loader
+} from 'semantic-ui-react';
 import * as types from '../global/types';
 import CheckOut from '../checkout/CheckOut';
 import ProductGrid from './ProductGrid';

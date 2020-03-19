@@ -41,7 +41,7 @@ const ListItem = ({ data }) => {
 							<div>
 								{/* <Button.Group basic size='mini'>
                                     <Button onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })}>+</Button>
-                                    <Button onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: data })}>-</Button>
+                                    <Button onClick={() => dispatch({ type: types.REDUCE_FROM_CART, selectedProduct: data })}>-</Button>
                                 </Button.Group> */}
 
 								{' '}

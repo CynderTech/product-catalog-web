@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-	Button, Icon, Header, Input, Label, Item, Checkbox
+	Button, Icon, Header, Input, Label, Item, Checkbox, Divider
 } from 'semantic-ui-react';
 import numeral from 'numeral';
 import * as types from '../global/types';
@@ -34,14 +34,29 @@ const CartItem = data => {
 					}}>
 					{data.name}
 				</Header>
-				<Label as="a" basic floated="right" size="small" style={{ borderStyle: 'none' }}>
-					<Icon name={hovered ? 'close' : 'ellipsis horizontal'} />
+
+				<Label
+					as="a"
+					basic
+					floated="right"
+					onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: data })}
+					size="large"
+					style={{
+						position: 'relative',
+						bottom: '12px',
+						color: hovered ? 'black' : 'white',
+						borderStyle: 'none',
+						width: '3px',
+						height: '3px'
+					}}>
+					<Icon name="close" />
 				</Label>
+
 				<Item.Meta floated="left">
 					<span style={{ color: 'green' }}>{numeral(data.price || 0).format('$ 0,0.00')}</span>
 					<Input>
 						<Button.Group basic floated="left" size="mini">
-							<Button icon="minus" onClick={() => dispatch({ type: types.REMOVE_FROM_CART, selectedProduct: data })} />
+							<Button icon="minus" onClick={() => dispatch({ type: types.REDUCE_FROM_CART, selectedProduct: data })} />
 							<input
 								onChange={e => console.log(e.target.value)}
 								style={{

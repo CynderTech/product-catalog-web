@@ -20,7 +20,6 @@ const Index = props => (
 		<ApolloProvider client={client}>
 			<Navbar />
 			<Layout>
-
 				<Catalog />
 				{/* <Navbar>
 

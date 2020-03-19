@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-	Grid, Card, Icon, Image, Checkbox, Rail, Segment, Sticky, Transition
+	Grid, Card, Dimmer, Loader, Image, Checkbox, Rail, Segment, Sticky, Transition
 } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
@@ -103,15 +103,16 @@ const ProductGrid = () => {
 	// if (error) return `Error! ${error}`;
 
 	return (
-		// <Grid container stretched verticalAlign="top" divided="vertically" padded="vertically" columns={4} doubling stackable>
-		// 	<Grid.Row>
+
 		<Card.Group doubling itemsPerRow={4} stackable>
-			{dataMoto.map((product, index) => (
+			{(!dataMoto || dataMoto.length === 0) ? (
+				<Dimmer active>
+					<Loader size="large">Loading</Loader>
+				</Dimmer>
+			) : dataMoto.map((product, index) => (
 				<ProductCard key={`${product.id}`} data={product} />
 			))}
 		</Card.Group>
-		// 	</Grid.Row>
-		// </Grid>
 	);
 };
 

@@ -17,15 +17,15 @@ const placeOrder = (data, converted, dispatch) => {
      * https://developers.paymongo.com/docs/authentication
      */
 	const base64encoded = Buffer.from(testKey).toString('base64');
-	const base64encodedNext = Buffer.from(skTest).toString('base64')
+	const base64encodedNext = Buffer.from(skTest).toString('base64');
 
 	const createToken = {
 		method: 'POST',
 		url: 'https://api.paymongo.com/v1/tokens',
 		headers: {
 			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Authorization': `Basic ${base64encoded}`,
+			Accept: 'application/json',
+			// 'Authorization': `Basic ${base64encoded}`,
 		},
 		data,
 	};
@@ -33,20 +33,20 @@ const placeOrder = (data, converted, dispatch) => {
 	console.log('ptngina: ', createToken);
 
 	axios(createToken)
-		//.then(response => console.log('First Name: ', data))
+		// .then(response => console.log('First Name: ', data))
 		.then(response => {
 			// const { data } = response;
-			const data = response.data.data;
+			const { data } = response.data;
 
 			// const { id, type } = data;
-			const id = data.id;
-			const type = data.type;
+			const { id } = data;
+			const { type } = data;
 
-			console.log("Type", response);
+			console.log('Type', response);
 			processPayment(id, type);
 		})
 		.catch(err => console.log('Error1Check: ', JSON.stringify(err.response.data)));
-	//.catch(err => console.log('Error1Check: ', data));
+	// .catch(err => console.log('Error1Check: ', data));
 
 	function processPayment(id, type) {
 		const createPayment = {
@@ -54,14 +54,14 @@ const placeOrder = (data, converted, dispatch) => {
 			url: 'https://api.paymongo.com/v1/payments',
 			headers: {
 				'Content-Type': 'application/json',
-				'Accept': 'application/json',
-				'Authorization': `Basic ${base64encodedNext}`,
+				Accept: 'application/json',
+				// 'Authorization': `Basic ${base64encodedNext}`,
 			},
 			data: {
 				data: {
 					attributes: {
 						amount: converted,
-						currency: "PHP",
+						currency: 'PHP',
 						source: {
 							id,
 							type
@@ -71,13 +71,12 @@ const placeOrder = (data, converted, dispatch) => {
 			}
 		};
 
-		console.log("att: ", createPayment);
+		console.log('att: ', createPayment);
 
 		return axios(createPayment)
 			.then(response => dispatch({ type: types.PAYMENT_SUCCESS }))
 			.catch(err => dispatch({ type: types.PAYMENT_ERROR }));
 	}
-
 };
 
 const CheckOut = () => {
@@ -117,13 +116,15 @@ const CheckOut = () => {
 	};
 
 	return (
-		<Grid columns={2} divided>
+		<Grid columns={2}>
 			<Grid.Column>
 				<PaymentDetails />
 			</Grid.Column>
-			<Grid.Column>
+			<Grid.Column style={{
+				paddingBottom: 'auto',
+			}}>
 				<Card.Group style={{
-					overflow: 'auto', maxHeight: '70vh'
+					paddingBottom: '0px', overflow: 'auto', maxHeight: '70vh',
 				}}>
 					{items.map(item => <ListItem key={`${item.id}`} data={item} />)}
 				</Card.Group>
@@ -134,12 +135,21 @@ const CheckOut = () => {
 					columns={2}
 					style={{
 						height: '15vh',
+						position: 'relative',
+
 					}}>
 					<Grid.Column floated="left">
 						<p>{` Order Total (${totalItems} Items ) | ${numeral(total || 0).format('$ 0,0.00')}`}</p>
 						<p>{' Shipping fee: P50'}</p>
-						<p style={{ fontSize: '10px' }}>Minimum purchase of
-							<p style={{ color: 'green' }}>{` ${numeral(100).format('$ 0,0.00')}`}</p>
+						<p
+							style={{
+								color: 'green',
+								position: 'relative',
+								left: '120px',
+								bottom: '33px',
+								fontSize: '10px'
+							}}>
+							{`Minimum purchase of ${numeral(100).format('$ 0,0.00')}`}
 						</p>
 					</Grid.Column>
 					<Grid.Column>
@@ -150,10 +160,11 @@ const CheckOut = () => {
 							</span>
 						</h4>
 						<Button
-							disabled={totalWithShipping < 100 || totalItems === 0}
 							basic
 							color="red"
+							disabled={totalWithShipping < 100 || totalItems === 0}
 							floated="left"
+							fluid
 							onClick={() => placeOrder(constructYourHeaderHere, converted, dispatch)}>
 							Place Order
 						</Button>

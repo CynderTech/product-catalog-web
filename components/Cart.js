@@ -17,7 +17,7 @@ const Cart = props => {
 
 	return (
 		<>
-			<Segment basic style={{ marginBottom: '1px', paddingBottom: '1px' }}>
+			<Segment style={{ marginBottom: '0px', paddingBottom: '15px' }}>
 				<Header as="h4">
 					<span style={{ color: 'grey' }}>
 						<Icon color="grey" name="cart" />
@@ -25,7 +25,6 @@ const Cart = props => {
 					</span>
 				</Header>
 			</Segment>
-			<Divider style={{ marginBottom: '10px' }} />
 			{
 				cart.length !== 0
 					? (
@@ -37,6 +36,7 @@ const Cart = props => {
 								overflow: 'auto',
 								marginBottom: '0px',
 							}}>
+							<Divider hidden style={{ marginBottom: '0px', marginTop: '0px' }} />
 							{cart.map(data => React.cloneElement({
 								...props.children,
 								key: data.id
@@ -53,12 +53,28 @@ const Cart = props => {
 						</Segment>
 					)
 			}
-			<Segment raised>
-				<span floated="left">
+			<Segment style={{ marginTop: '0px', paddingTop: '15px' }}>
+				<span style={{
+					position: 'relative',
+					left: '10px',
+					fontSize: '18px'
+				}}>
 					{'Total: '}
 					<span style={{ color: 'green' }}>{numeral(total || 0).format('$ 0,0.00')}</span>
 				</span>
-				<Button basic color="red" disabled={checkOut(cart).length === 0} floated="left" floated="right" floated="right" onClick={() => dispatch({ type: types.CHECK_OUT })} size="tiny">Check Out</Button>
+				<Button
+					basic
+					color="red"
+					disabled={checkOut(cart).length === 0}
+					onClick={() => dispatch({ type: types.CHECK_OUT })}
+					size="large"
+					style={{
+						position: 'relative',
+						left: '50px',
+						bottom: '3px'
+					}}>
+					Check Out
+				</Button>
 			</Segment>
 		</>
 	);
