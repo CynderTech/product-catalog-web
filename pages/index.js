@@ -21,22 +21,9 @@ const Index = props => (
 			<Navbar />
 			<Layout>
 				<Catalog />
-				{/* <Navbar>
-
-					<Catalog />
-				</Navbar> */}
 			</Layout>
 		</ApolloProvider>
 	</ProductCatalogProvider>
 );
-
-// Index.getInitialProps = async function () {
-//     const res = await fetch('<json url here>');
-//     const data = await res.json();
-
-//     return {
-//         products: data.products
-//     };
-// }
 
 export default Index;

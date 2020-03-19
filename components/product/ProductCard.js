@@ -38,9 +38,6 @@ const ProductCard = ({ data }) => {
 			</Card.Content>
 			<Card.Content extra>
 				<Button.Group basic fluid size="mini">
-					{/* <Button onClick={() => dispatch({ type: types.VIEW_PRODUCT, selectedProduct: data })}>
-                        View
-                    </Button> */}
 					<Button onClick={() => {
 						dispatch({ type: types.ADD_TO_CART, selectedProduct: data });
 					}}>

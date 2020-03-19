@@ -60,7 +60,6 @@ const CartItem = data => {
 						<Button.Group basic floated="left" size="mini">
 							<Button icon="minus" onClick={() => dispatch({ type: types.REDUCE_FROM_CART, selectedProduct: data })} style={{ borderStyle: 'hidden' }} />
 							<input
-								onChange={e => console.log(e.target.value)}
 								style={{
 									width: '60px',
 									textAlign: 'center',

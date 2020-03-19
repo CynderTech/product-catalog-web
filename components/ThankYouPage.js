@@ -9,7 +9,6 @@ const ThankYouPage = () => {
 	const [{ mode }, dispatch] = useGlobalState();
 
 	return (
-
 		<div style={{
 			height: '500px',
 			width: '100%'
@@ -29,7 +28,6 @@ const ThankYouPage = () => {
 							Something went wrong!
 						</Header>
 					)}
-
 				<Button onClick={() => dispatch({ type: types.CATALOG })} primary>Back to Main Page</Button>
 			</Segment>
 		</div>

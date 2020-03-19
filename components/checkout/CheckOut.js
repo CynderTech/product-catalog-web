@@ -30,23 +30,15 @@ const placeOrder = (data, converted, dispatch) => {
 		data,
 	};
 
-	console.log('ptngina: ', createToken);
-
 	axios(createToken)
-		// .then(response => console.log('First Name: ', data))
 		.then(response => {
-			// const { data } = response;
 			const { data } = response.data;
-
-			// const { id, type } = data;
 			const { id } = data;
 			const { type } = data;
 
-			console.log('Type', response);
 			processPayment(id, type);
 		})
-		.catch(err => console.log('Error1Check: ', JSON.stringify(err.response.data)));
-	// .catch(err => console.log('Error1Check: ', data));
+		.catch(err => console.log(JSON.stringify(err.response.data)));
 
 	function processPayment(id, type) {
 		const createPayment = {
@@ -70,8 +62,6 @@ const placeOrder = (data, converted, dispatch) => {
 				}
 			}
 		};
-
-		console.log('att: ', createPayment);
 
 		return axios(createPayment)
 			.then(response => dispatch({ type: types.PAYMENT_SUCCESS }))

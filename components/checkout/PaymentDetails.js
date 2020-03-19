@@ -5,7 +5,6 @@ import {
 import * as types from '../global/types';
 import { useGlobalState } from '../global/useGlobalState';
 
-
 const expMonthOption = [
 	{ key: 1, text: '01', value: 1 },
 	{ key: 2, text: '02', value: 2 },
@@ -42,8 +41,6 @@ const PaymentDetails = () => {
 		cardNumber,
 		cardType,
 		cvc,
-		expMonth,
-		expYear,
 		firstName,
 		lastName,
 		middleName

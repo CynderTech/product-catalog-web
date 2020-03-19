@@ -23,15 +23,6 @@ const ListItem = ({ data }) => {
 						/>
 						<Card.Header>{name}</Card.Header>
 						<Card.Meta>category</Card.Meta>
-						{/* <Card.Description
-							style={{
-								width: '300px',
-								whiteSpace: 'nowrap',
-								overflow: 'hidden',
-								textOverflow: 'ellipsis'
-							}}>
-							{desc}
-						</Card.Description> */}
 					</Grid.Column>
 					<Grid.Column>
 						<Card.Content extra textAlign="right">
@@ -39,11 +30,6 @@ const ListItem = ({ data }) => {
 						</Card.Content>
 						<Card.Content as="a" extra textAlign="right">
 							<div>
-								{/* <Button.Group basic size='mini'>
-                                    <Button onClick={() => dispatch({ type: types.ADD_TO_CART, selectedProduct: data })}>+</Button>
-                                    <Button onClick={() => dispatch({ type: types.REDUCE_FROM_CART, selectedProduct: data })}>-</Button>
-                                </Button.Group> */}
-
 								{' '}
 								<Icon />
 								<span>{qty ? `x${qty}` : `x${1}`}</span>

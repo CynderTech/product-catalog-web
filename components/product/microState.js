@@ -22,7 +22,6 @@ export function useMicroState() {
 			listeners.add(dispatch);
 			// update the state if it was changed
 			msState.mode = state;
-			console.log(`state micro state was update to ${state.mode}`);
 
 			// remove listener
 			return () => listeners.delete(dispatch);
