@@ -105,11 +105,11 @@ const ProductGrid = () => {
 	return (
 
 		<Card.Group doubling itemsPerRow={4} stackable>
-			{(!dataMoto || dataMoto.length === 0) ? (
+			{(!data.allProducts || data.allProducts.length === 0) ? (
 				<Dimmer active>
 					<Loader size="large">Loading</Loader>
 				</Dimmer>
-			) : data.ALL_PRODUCTS.map((product, index) => (
+			) : data.allProducts.map((product, index) => (
 				<ProductCard key={`${product.id}`} data={product} />
 			))}
 		</Card.Group>
