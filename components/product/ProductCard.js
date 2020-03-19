@@ -3,7 +3,6 @@ import React from 'react';
 import {
 	Button, Card, Icon, Image, Label, Div
 } from 'semantic-ui-react';
-import toastr from 'toastr';
 import numeral from 'numeral';
 import * as types from '../global/types';
 import { useGlobalState } from '../global/useGlobalState';
