@@ -104,7 +104,7 @@ const CheckOut = () => {
 	const constructYourHeaderHere = {
 		data: {
 			attributes: {
-				number: cardNumber,
+				number: (cardNumber || '').trim().replace(/\040/g, ''),
 				exp_month: expMonth,
 				exp_year: expYear,
 				cvc,
