@@ -68,7 +68,10 @@ const placeOrder = (data, converted, dispatch) => {
 		};
 
 		return axios(createPayment)
-			.then(response => dispatch({ type: types.PAYMENT_SUCCESS }))
+			.then(response => {
+				dispatch({ type: types.PAYMENT_SUCCESS });
+				dispatch({ type: types.CLEAR_CART });
+			})
 			.catch(err => dispatch({ type: types.PAYMENT_ERROR }));
 	}
 };

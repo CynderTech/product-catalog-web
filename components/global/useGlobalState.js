@@ -47,13 +47,11 @@ const reducer = (state, action) => {
 			return { ...prevState, openCart: false };
 		}
 
-		case types.SELECT_PRODUCT: {
-			const prevState = { ...state };
-			prevState.cart = modifyCartData(prevState.cart, action);
-			return { ...prevState };
-		}
-
-		case types.ADD_TO_CART: {
+		case types.SELECT_PRODUCT:
+		case types.ADD_TO_CART:
+		case types.REDUCE_FROM_CART:
+		case types.REMOVE_FROM_CART:
+		case types.CLEAR_CART: {
 			const prevState = { ...state };
 			prevState.cart = modifyCartData(prevState.cart, action);
 			return { ...prevState };
@@ -68,18 +66,6 @@ const reducer = (state, action) => {
 		case types.CLOSE_CART: {
 			const prevState = { ...state };
 			prevState.openCart = false;
-			return { ...prevState };
-		}
-
-		case types.REDUCE_FROM_CART: {
-			const prevState = { ...state };
-			prevState.cart = modifyCartData(prevState.cart, action);
-			return { ...prevState };
-		}
-
-		case types.REMOVE_FROM_CART: {
-			const prevState = { ...state };
-			prevState.cart = modifyCartData(prevState.cart, action);
 			return { ...prevState };
 		}
 

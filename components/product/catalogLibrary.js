@@ -44,7 +44,7 @@ export const modifyCartData = (cart, action) => {
 	let updatedCart = [];
 	let newQty = 0;
 	let updatedCartItem = {};
-	const index = cart.findIndex(item => item.id === selectedProduct.id);
+	const index = cart.findIndex(item => item.id === (selectedProduct || {}).id);
 	const retrievedCartItem = cart[index];
 	const cartStart = cart.slice(0, index);
 	const cartEnd = cart.slice(index + 1);
@@ -133,6 +133,10 @@ export const modifyCartData = (cart, action) => {
 			updatedSelectedProduct,
 			...unselectedProducts
 		];
+	}
+
+	if (type === types.CLEAR_CART) {
+		return [];
 	}
 
 	return updatedCart;
