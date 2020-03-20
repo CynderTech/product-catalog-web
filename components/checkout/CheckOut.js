@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-	Card, Button, Grid, Header, Divider, Container, Segment, Form, Label, Input
+	Button, Card, Dimmer, Divider, Grid, Loader, Segment,
 } from 'semantic-ui-react';
 import numeral from 'numeral';
 import axios from 'axios';
@@ -10,12 +10,11 @@ import PaymentDetails from './PaymentDetails';
 import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
 
-const placeOrder = (data, converted, dispatch) => {
+const placeOrder = (data, converted, dispatch, setLoading) => {
+	setLoading(true);
+
 	const testKey = process.env.PK_TEST;
 	const skTest = process.env.SK_TEST;
-
-	console.log('PK Test', testKey);
-	console.log('SK Test', skTest);
 
 	/**
      * https://developers.paymongo.com/docs/authentication
@@ -40,8 +39,9 @@ const placeOrder = (data, converted, dispatch) => {
 			const { id } = data;
 			const { type } = data;
 
-			processPayment(id, type);
+			return processPayment(id, type);
 		})
+		.then(() => setLoading(false))
 		.catch(err => console.log(JSON.stringify(err.response.data)));
 
 	function processPayment(id, type) {
@@ -108,9 +108,14 @@ const CheckOut = () => {
 				exp_month: expMonth,
 				exp_year: expYear,
 				cvc,
+				billing: {
+					name: `${firstName} ${lastName}`,
+				}
 			}
 		}
 	};
+
+	const [loading, setLoading] = useState(false);
 
 	return (
 		<Grid columns={2}>
@@ -159,10 +164,11 @@ const CheckOut = () => {
 						<Button
 							basic
 							color="red"
-							disabled={totalWithShipping < 100 || totalItems === 0}
+							disabled={totalWithShipping < 100 || totalItems === 0 || loading}
 							floated="left"
 							fluid
-							onClick={() => placeOrder(constructYourHeaderHere, converted, dispatch)}>
+							loading={loading}
+							onClick={() => placeOrder(constructYourHeaderHere, converted, dispatch, setLoading)}>
 							Place Order
 						</Button>
 					</Grid.Column>
