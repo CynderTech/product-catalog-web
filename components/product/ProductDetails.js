@@ -13,7 +13,7 @@ const ProductDetails = () => {
 	return (
 		<Item.Group>
 			<Item>
-				<Item.Image rounded size="medium" src={selectedProduct.img} />
+				<Item.Image rounded size="medium" src={`${process.env.CMS_BASE_URL}${((selectedProduct.file || {}).publicUrl || '')}`} />
 				<Item.Content>
 					<Item.Header as="a">
 						<h1>
