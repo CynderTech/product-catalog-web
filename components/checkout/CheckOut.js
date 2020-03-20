@@ -11,8 +11,12 @@ import { useGlobalState } from '../global/useGlobalState';
 import { checkOut } from '../product/catalogLibrary';
 
 const placeOrder = (data, converted, dispatch) => {
-	const testKey = 'pk_test_1FZShWVgMRgWhXBphmMBE2tp';
-	const skTest = 'sk_test_YXvSu6uthuoQwQgLWp8m4Ljb';
+	const testKey = process.env.PK_TEST;
+	const skTest = process.env.SK_TEST;
+
+	console.log('PK Test', testKey);
+	console.log('SK Test', skTest);
+
 	/**
      * https://developers.paymongo.com/docs/authentication
      */
