@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 const ListItem = ({ data }) => {
 	const {
-		img, name, price, qty
+		file, name, price, qty
 	} = data;
 
 	return (
@@ -19,7 +19,7 @@ const ListItem = ({ data }) => {
 							bordered
 							floated="left"
 							size="tiny"
-							src={img}
+							src={`${process.env.CMS_BASE_URL}${((file || {}).publicUrl || '')}`}
 						/>
 						<Card.Header>{name}</Card.Header>
 						<Card.Meta>category</Card.Meta>

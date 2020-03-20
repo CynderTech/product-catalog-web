@@ -11,7 +11,7 @@ import Cart from '../components/Cart';
 
 // fetch apollo client
 const client = new ApolloClient({
-	uri: 'http://localhost:3002/admin/api',
+	uri: `${process.env.CMS_BASE_URL}/admin/api`,
 	fetch
 });
 

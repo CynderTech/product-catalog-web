@@ -15,7 +15,7 @@ const ProductCard = ({ data }) => {
 	const [{ cart }, dispatch] = useGlobalState();
 	return (
 		<Card raised>
-			<Image rounded size="large" src={`http://localhost:3002${((file || {}).publicUrl || '')}`} ui wrapped />
+			<Image rounded size="large" src={`${process.env.CMS_BASE_URL}${((file || {}).publicUrl || '')}`} ui wrapped />
 			<Card.Content>
 				<Card.Header
 					as="a"

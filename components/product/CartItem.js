@@ -20,7 +20,7 @@ const CartItem = data => {
 				/>
 			</Item.Content>
 			<Item.Content>
-				<Item.Image floated="left" rounded size="tiny" src={data.img} />
+				<Item.Image floated="left" rounded size="tiny" src={`${process.env.CMS_BASE_URL}${((data.file || {}).publicUrl || '')}`} />
 			</Item.Content>
 			<Item.Content>
 				<Header
