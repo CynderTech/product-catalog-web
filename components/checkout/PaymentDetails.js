@@ -75,24 +75,6 @@ const PaymentDetails = () => {
 				value={lastName}
 			/>
 			<Segment>
-				<Form.Field>
-					<Radio
-						checked={cardType === 'Debit'}
-						label="Debit"
-						name="radioGroup"
-						onChange={() => dispatch({ type: types.PAYMENT_DETAILS, cardType: 'Debit' })}
-						value="Debit"
-					/>
-				</Form.Field>
-				<Form.Field>
-					<Radio
-						checked={cardType === 'Credit'}
-						label="Credit"
-						name="radioGroup"
-						onChange={() => dispatch({ type: types.PAYMENT_DETAILS, cardType: 'Credit' })}
-						value="Credit"
-					/>
-				</Form.Field>
 				<br />
 				<span>{`${cardType || ''} Card Exp Date: `}</span>
 				<br />
@@ -123,8 +105,6 @@ const PaymentDetails = () => {
 				/>
 
 			</Segment>
-
-			<Checkbox label="I accept the Terms and Condition" />
 		</Segment>
 	);
 };
